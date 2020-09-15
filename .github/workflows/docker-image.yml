@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  path-context:
+  main:
     runs-on: ubuntu-latest
     steps:
       -
@@ -31,7 +31,6 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64
           push: true
           tags: rembik/ansible-controller:latest
         
