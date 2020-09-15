@@ -10,7 +10,7 @@ jobs:
   path-context:
     runs-on: ubuntu-latest
     env:
-      image_repo: rembik/ansible-controller
+      IMAGE_REPO: rembik/ansible-controller
     steps:
       -
         name: Checkout
@@ -35,5 +35,5 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64,linux/386
           push: true
-          tags: ${{ image_repo }}:latest
+          tags: $IMAGE_REPO:latest
         
