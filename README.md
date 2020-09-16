@@ -1,7 +1,7 @@
 # Ansible Controller
 
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/rembik/docker-ansible-controller/docker-ci/master?logo=github&label=build)](https://github.com/rembik/docker-ansible-controller/actions)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rembik/docker-ansible-controller?logo=github)](https://github.com/rembik/docker-ansible-controller/releases)
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rembik/docker-ansible-controller?sort=semver&logo=github)](https://github.com/rembik/docker-ansible-controller/releases)
 [![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/rembik/ansible-controller?label=image&logo=docker&logoColor=FFF&sort=semver)](https://hub.docker.com/r/rembik/ansible-controller)
 
 Ansible control node as container for development or local CI/CD purposes.
