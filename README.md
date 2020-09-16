@@ -63,4 +63,4 @@ If you find issues, please register them at this [GitHub project issue page](htt
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](http://github.com/rembik/docker-ansible-controller/tree/master/github/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](http://github.com/rembik/docker-ansible-controller/tree/master/LICENSE) file for details.
