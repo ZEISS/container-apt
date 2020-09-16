@@ -1,4 +1,4 @@
-name: Docker CI
+name: docker-ci
 
 on:
   schedule:
@@ -7,7 +7,7 @@ on:
     branches:
       - 'master'
     tags:
-      - 'v?[0-9]+.[0-9]+.[0-9]+'
+      - 'v?[0-9]+.[0-9]+.[0-9]+*'
   pull_request:
 
 jobs:

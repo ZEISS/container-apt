@@ -5,6 +5,7 @@ RUN set -eux; \
         coreutils \
         curl \
         wget \
+        bash \
         git \
         openssh \
         sshpass \
