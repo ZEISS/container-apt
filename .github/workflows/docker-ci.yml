@@ -1,8 +1,8 @@
-name: Docker CI
+name: docker-ci
 
 on:
   schedule:
-    - cron: '0 10 * * *' # everyday at 10am
+    - cron: '0 22 * * *' # everyday at 10pm
   push:
     branches:
       - 'master'
