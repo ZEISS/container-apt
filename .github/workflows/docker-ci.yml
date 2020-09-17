@@ -88,8 +88,8 @@ jobs:
             org.opencontainers.image.licenses=${{ github.event.repository.license.name }}
       -
         name: Push image description
-        if: (github.event_name != 'pull_request') &&
-            (contains(steps.prep.outputs.tags, ':latest') == 'true')
+        if: github.event_name != 'pull_request' &&
+            contains(steps.prep.outputs.tags, ':latest')
         uses: peter-evans/dockerhub-description@v2
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
