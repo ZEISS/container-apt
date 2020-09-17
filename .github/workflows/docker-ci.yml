@@ -18,7 +18,7 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
-        name: Prepare
+        name: Prepare tags
         id: prep
         run: |
           DOCKER_IMAGE=rembik/ansible-controller
@@ -69,7 +69,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
+        name: Build and push image
         id: docker_build
         uses: docker/build-push-action@v2
         with:
@@ -86,3 +86,11 @@ jobs:
             org.opencontainers.image.version=${{ steps.prep.outputs.version }}
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.licenses=${{ github.event.repository.license.name }}
+      -
+        name: Push image description
+        uses: peter-evans/dockerhub-description@v2
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+          DOCKERHUB_REPOSITORY: peterevans/dockerhub-description
+          README_FILEPATH: ./README.md
