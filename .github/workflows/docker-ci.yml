@@ -89,7 +89,7 @@ jobs:
       -
         name: Push image description
         if: (github.event_name != 'pull_request') &&
-            (contains(steps.prep.outputs.version, ':latest'))
+            (contains(steps.prep.outputs.tags, ':latest') == 'true')
         uses: peter-evans/dockerhub-description@v2
         env:
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
