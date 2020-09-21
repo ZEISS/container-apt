@@ -39,6 +39,7 @@ RUN set -eux; \
         requests[security] \
         dns-lexicon[full] \
     ; \
+    chmod +x /usr/local/share/hashicorp/install.sh; \
     /usr/local/share/hashicorp/install.sh; \
     apk del .build-deps
 
