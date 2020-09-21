@@ -1,5 +1,7 @@
 FROM python:3-alpine
 
+COPY install_hashicorp.sh /usr/local/share/hashicorp/install.sh
+
 RUN set -eux; \
     apk --update add --no-cache \
         coreutils \
@@ -21,6 +23,7 @@ RUN set -eux; \
         libxml2-dev \
         libxslt-dev \
         openssl-dev \
+        gnupg \
     ; \
     \
     pip install --no-cache-dir \
@@ -36,6 +39,7 @@ RUN set -eux; \
         requests[security] \
         dns-lexicon[full] \
     ; \
+    /usr/local/share/hashicorp/install.sh; \
     apk del .build-deps
 
 RUN set -eux; \
