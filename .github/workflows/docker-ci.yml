@@ -2,7 +2,7 @@ name: docker-ci
 
 on:
   schedule:
-    - cron: '0 22 * * *' # everyday at 10pm
+    - cron: '0 22 * * 0' # every sunday at 10pm
   push:
     branches:
       - 'master'
@@ -18,7 +18,7 @@ jobs:
         name: Checkout
         uses: actions/checkout@v2
       -
-        name: Prepare
+        name: Prepare tags
         id: prep
         run: |
           DOCKER_IMAGE=rembik/ansible-controller
@@ -69,7 +69,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
-        name: Build and push
+        name: Build and push image
         id: docker_build
         uses: docker/build-push-action@v2
         with:
@@ -86,3 +86,13 @@ jobs:
             org.opencontainers.image.version=${{ steps.prep.outputs.version }}
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.licenses=${{ github.event.repository.license.name }}
+      -
+        name: Push image description
+        if: github.event_name != 'pull_request' &&
+            contains(steps.prep.outputs.tags, ':latest')
+        uses: peter-evans/dockerhub-description@v2
+        env:
+          DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+          DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+          DOCKERHUB_REPOSITORY: rembik/ansible-controller
+          README_FILEPATH: ./README.md
