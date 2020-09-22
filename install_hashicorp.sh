@@ -32,12 +32,14 @@ install_hashicorp(){
     unzip ${name}_${version}_linux_${osarch}.zip >/dev/null
     chmod +x ${name}
     mv -f ${name} /usr/local/bin/${name}
-    # Verify the tool installation
-    ${name}
     # Clean up the archive and signature files
-    rm ${name}_${version}_linux_${arch}.zip
+    rm ${name}_${version}_linux_${osarch}.zip
     rm ${name}_${version}_SHA256SUMS
     rm ${name}_${version}_SHA256SUMS.sig
+    # Verify the installation
+    if [ "$(${name} --version | sed -En 's/^.*?([0-9]+\.[0-9]+\.[0-9]+).*$/\1/p')" == "${version}" ]; then
+        echo >&2 "Installing ${name} (${version}): OK"
+    fi
 }
 
 # Import Hashicorp PGP key

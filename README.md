@@ -29,12 +29,12 @@ Run container with shared volumes to persist and execute IaC from the inside:
 ```shell
 # Docker on Linux or Mac
 docker run --rm -d \
-    - v /host/path:/container/path \
+    -v /host/path:/container/path \
     --name ansible_controller rembik/ansible-controller
 
 # Docker on Windows
 docker run --rm -d `
-    - v /drive/host/path:/container/path `
+    -v /drive/host/path:/container/path `
     --name ansible_controller rembik/ansible-controller
 ```
 
