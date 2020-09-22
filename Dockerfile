@@ -33,7 +33,6 @@ RUN set -eux; \
         tox \
         molecule \
         git+https://github.com/boto/botocore.git@v2 \
-        boto3 \
         git+https://github.com/aws/aws-cli.git@v2 \
         ansible[azure] \
         azure-cli \
