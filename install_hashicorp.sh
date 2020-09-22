@@ -27,6 +27,7 @@ install_hashicorp(){
     # Verify the signature file is untampered
     gpg --verify ${name}_${version}_SHA256SUMS.sig ${name}_${version}_SHA256SUMS
     # Verify the SHASUM matches the archive
+    grep ${name}_${version}_linux_${osarch}.zip ${name}_${version}_SHA256SUMS
     echo "$(grep ${name}_${version}_linux_${osarch}.zip ${name}_${version}_SHA256SUMS)" | sha256sum -c
     # Extract archive
     unzip ${name}_${version}_linux_${osarch}.zip >/dev/null
