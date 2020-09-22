@@ -14,7 +14,7 @@ install_hashicorp(){
     if [ "$(uname -m)" == "x86_64" ] && [ "$(getconf LONG_BIT)" == "64" ]; then
         osarch="amd64"
     elif [ "$(uname -m)" == "x86_64" ] && [ "$(getconf LONG_BIT)" == "32" ]; then
-        ossarch="386"
+        osarch="386"
     elif [ "$(uname -m)" == "aarch64" ]; then
         osarch="arm64"
     else
@@ -27,9 +27,8 @@ install_hashicorp(){
     # Verify the signature file is untampered
     gpg --verify ${name}_${version}_SHA256SUMS.sig ${name}_${version}_SHA256SUMS
     # Verify the SHASUM matches the archive
-    sed -i "/linux_${osarch}\.zip/!d" ${name}_${version}_SHA256SUMS
-    sha256sum -c ${name}_${version}_SHA256SUMS
-    # Extract archive
+    grep ${name}_${version}_linux_${osarch}.zip ${name}_${version}_SHA256SUMS | sha256sum -c
+    # Extract the archive
     unzip ${name}_${version}_linux_${osarch}.zip >/dev/null
     chmod +x ${name}
     mv -f ${name} /usr/local/bin/${name}

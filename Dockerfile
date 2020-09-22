@@ -27,15 +27,15 @@ RUN set -eux; \
     ; \
     \
     pip install --no-cache-dir \
+        azure-cli \
         ansible \
         pywinrm[kerberos,credssp] \
-        docker \
         tox \
         molecule \
+        docker \
         boto3 \
         awscli \
         ansible[azure] \
-        azure-cli \
         requests[security] \
         dns-lexicon[full] \
     ; \
