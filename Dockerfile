@@ -30,17 +30,20 @@ RUN set -eux; \
         ansible \
         pywinrm[kerberos,credssp] \
         docker \
-        boto3 \
-        ansible[azure] \
         tox \
         molecule \
-        awscli \
+        git+https://github.com/boto/botocore.git@v2 \
+        boto3 \
+        git+https://github.com/aws/aws-cli.git@v2 \
+        ansible[azure] \
         azure-cli \
         requests[security] \
         dns-lexicon[full] \
     ; \
+    \
     chmod +x /usr/local/share/hashicorp/install.sh; \
     /usr/local/share/hashicorp/install.sh; \
+    \
     apk del .build-deps
 
 RUN set -eux; \
