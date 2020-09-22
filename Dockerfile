@@ -32,8 +32,8 @@ RUN set -eux; \
         docker \
         tox \
         molecule \
-        git+https://github.com/boto/botocore.git@v2 \
-        git+https://github.com/aws/aws-cli.git@v2 \
+        boto3 \
+        awscli \
         ansible[azure] \
         azure-cli \
         requests[security] \
