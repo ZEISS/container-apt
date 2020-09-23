@@ -2,49 +2,11 @@
 set -Eeo pipefail
 # TODO add "-u"
 
-install_hashicorp(){
-    local name="$1" version="${2:-latest}" osarch
-    local check_url="https://checkpoint-api.hashicorp.com/v1/check" download_url="https://releases.hashicorp.com"
+import_hashicorp_pgp(){
+    # https://www.hashicorp.com/security
+    local catch_err=0
 
-    # Check out the latest version
-    if [ "${version}" == "latest" ]; then
-        version="$(curl -s ${check_url}/${name} | sed -En 's/.*"current_version":"?([^,"]*)"?.*/\1/p')"
-    fi
-    # Check out the linux kernel architecture
-    if [ "$(uname -m)" == "x86_64" ] && [ "$(getconf LONG_BIT)" == "64" ]; then
-        osarch="amd64"
-    elif [ "$(uname -m)" == "x86_64" ] && [ "$(getconf LONG_BIT)" == "32" ]; then
-        osarch="386"
-    elif [ "$(uname -m)" == "aarch64" ]; then
-        osarch="arm64"
-    else
-        exit 1
-    fi
-    # Download the archive and signature files
-    curl -Os ${download_url}/${name}/${version}/${name}_${version}_linux_${osarch}.zip
-    curl -Os ${download_url}/${name}/${version}/${name}_${version}_SHA256SUMS
-    curl -Os ${download_url}/${name}/${version}/${name}_${version}_SHA256SUMS.sig
-    # Verify the signature file is untampered
-    gpg --verify ${name}_${version}_SHA256SUMS.sig ${name}_${version}_SHA256SUMS
-    # Verify the SHASUM matches the archive
-    grep ${name}_${version}_linux_${osarch}.zip ${name}_${version}_SHA256SUMS | sha256sum -c
-    # Extract the archive
-    unzip ${name}_${version}_linux_${osarch}.zip >/dev/null
-    chmod +x ${name}
-    mv -f ${name} /usr/local/bin/${name}
-    # Clean up the archive and signature files
-    rm ${name}_${version}_linux_${osarch}.zip
-    rm ${name}_${version}_SHA256SUMS
-    rm ${name}_${version}_SHA256SUMS.sig
-    # Verify the installation
-    if [ "$(${name} --version | sed -En 's/^.*?([0-9]+\.[0-9]+\.[0-9]+).*$/\1/p')" == "${version}" ]; then
-        echo >&2 "Installing ${name} (${version}): OK"
-    fi
-}
-
-# Import Hashicorp PGP key
-# https://www.hashicorp.com/security
-cat >hashicorp.asc <<EOF
+    cat >/tmp/hashicorp.asc <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
                  
 mQENBFMORM0BCADBRyKO1MhCirazOSVwcfTr1xUxjPvfxD3hjUwHtjsOy/bT6p9f
@@ -76,8 +38,80 @@ qHV5VVCoEIoYVHIuFIyFu1lIcei53VD6V690rmn0bp4A5hs+kErhThvkok3c
 =+mCN
 -----END PGP PUBLIC KEY BLOCK-----
 EOF
-gpg --import hashicorp.asc
-rm hashicorp.asc
+    set +e
+    gpg --import /tmp/hashicorp.asc &> /tmp/gpg_log
+    catch_err=$?
+    set -e
+    if [ $catch_err -ne 0 ]; then
+        cat /tmp/gpg_log
+        exit $catch_err
+    fi
+    rm /tmp/gpg_log
+    rm /tmp/hashicorp.asc
+}
+
+install_hashicorp(){
+    local name="$1" version="${2:-latest}" osarch="undefined" catch_err=0
+    local check_url="https://checkpoint-api.hashicorp.com/v1/check" download_url="https://releases.hashicorp.com"
+
+    # Check out the latest package version
+    if [ "${version}" == "latest" ]; then
+        version="$(curl -s ${check_url}/${name} | sed -En 's/.*"current_version":"?([^,"]*)"?.*/\1/p')"
+    fi
+    # Check out the linux kernel architecture
+    if [ "$(uname -m)" == "x86_64" ] && [ "$(getconf LONG_BIT)" == "64" ]; then
+        osarch="amd64"
+    elif [ "$(uname -m)" == "x86_64" ] && [ "$(getconf LONG_BIT)" == "32" ]; then
+        osarch="386"
+    elif [ "$(uname -m)" == "aarch64" ]; then
+        osarch="arm64"
+    fi
+    # Check out the archive
+    set +e
+    curl -fsIo /dev/null ${download_url}/${name}/${version}/${name}_${version}_linux_${osarch}.zip
+    catch_err=$?
+    set -e
+    if [ $catch_err -ne 0 ]; then
+        echo >&2 "Installing ${name} (${version}) skipped"
+        echo >&2 "ERROR:   No appropriate package archive for your version, operating system or"
+        echo >&2 "         architecture (${name}_${version}_linux_${osarch}.zip)"
+        echo >&2 "         See ${download_url}/${name}"
+        return
+    fi
+    echo >&2 "Installing ${name} (${version})"
+    # Download the archive and signature files
+    curl -Os ${download_url}/${name}/${version}/${name}_${version}_linux_${osarch}.zip
+    curl -Os ${download_url}/${name}/${version}/${name}_${version}_SHA256SUMS
+    curl -Os ${download_url}/${name}/${version}/${name}_${version}_SHA256SUMS.sig
+    # Verify the signature file is untampered
+    set +e
+    gpg --verify ${name}_${version}_SHA256SUMS.sig ${name}_${version}_SHA256SUMS &> /tmp/gpg_log
+    catch_err=$?
+    set -e
+    if [ $catch_err -ne 0 ]; then
+        cat /tmp/gpg_log
+        exit $catch_err
+    fi
+    rm /tmp/gpg_log
+    # Verify the SHASUM matches the archive
+    grep ${name}_${version}_linux_${osarch}.zip ${name}_${version}_SHA256SUMS | sha256sum -c --status
+    # Extract the archive
+    unzip ${name}_${version}_linux_${osarch}.zip >/dev/null
+    chmod +x ${name}
+    mv -f ${name} /usr/local/bin/${name}
+    # Clean up the archive and signature files
+    rm ${name}_${version}_linux_${osarch}.zip
+    rm ${name}_${version}_SHA256SUMS
+    rm ${name}_${version}_SHA256SUMS.sig
+    # Verify the package installation
+    if [ "$(${name} --version | sed -En 's/^.*?([0-9]+\.[0-9]+\.[0-9]+).*$/\1/p')" != "${version}" ]; then
+        echo >&2 "WARNING: Another executable with the same name will be prioritized at execution"
+        echo >&2 "         Check your system's PATH"
+    fi
+}
+
+# Import Hashicorp PGP key
+import_hashicorp_pgp
 # Install Hashicorp tools
 install_hashicorp packer
 install_hashicorp terraform
