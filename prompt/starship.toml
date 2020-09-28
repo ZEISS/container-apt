@@ -3,7 +3,9 @@ symbol = " "
 style = "#232F3E"
 
 [cmd_duration]
-style = "dimmed yellow"
+style = "white"
+prefix = "祥"
+min_time = 2000
 
 [directory]
 truncation_length = 8
@@ -25,7 +27,16 @@ style = "dimmed #F05032"
 
 [git_status]
 style = "#F05032"
+prefix = ""
+suffix = " "
 show_sync_count = true
+conflicted_count.enabled = true
+deleted_count.enabled = true
+modified_count.enabled = true
+stashed_count.enabled = true
+staged_count.enabled = true
+renamed_count.enabled = true
+untracked_count.enabled = true
 
 [memory_usage]
 disabled = false

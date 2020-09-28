@@ -61,14 +61,15 @@ RUN set -eux; \
     mkdir -p /usr/local/etc/dehydrated/hooks; \
     wget -O /usr/local/etc/dehydrated/hooks/lexicon.sh https://raw.githubusercontent.com/AnalogJ/lexicon/master/examples/dehydrated.default.sh
 
-COPY conf/.bashrc ~/.bashrc
-COPY conf/.vimrc ~/.vimrc
-COPY conf/font.conf /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf
+COPY prompt/.bashrc ~/.bashrc
+COPY prompt/starship.toml ~/.config/starship.toml
+COPY prompt/.vimrc ~/.vimrc
+COPY prompt/nerd-emoji.conf /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf
 
 RUN set -eux; \
     apk --update add --no-cache vim fontconfig; \
     apk --update add --no-cache font-noto-emoji --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community; \
-    pip install --no-cache-dir powerline-status powerline-gitstatus; \
+    pip install --no-cache-dir powerline-status; \
     curl -fsSL https://starship.rs/install.sh | bash; \
     wget -P /usr/share/fonts/nerd https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf; \
     wget -P /usr/share/fontconfig/conf.avail/ https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf; \
