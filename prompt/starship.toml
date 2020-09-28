@@ -1,0 +1,44 @@
+[aws]
+symbol = " "
+style = "#232F3E"
+
+[cmd_duration]
+style = "dimmed yellow"
+
+[directory]
+truncation_length = 8
+
+[docker]
+disabled = false
+symbol = "  "
+only_with_files = true
+style = "#2496ED"
+
+[git_branch]
+symbol = " "
+style = "bold #F05032"
+truncation_length = 8
+truncation_symbol = ""
+
+[git_commit]
+style = "dimmed #F05032"
+
+[git_status]
+style = "#F05032"
+show_sync_count = true
+
+[memory_usage]
+disabled = false
+symbol = " "
+style = "dimmed green"
+show_percentage = true
+show_swap = false
+threshold = 75
+
+[terraform]
+symbol = " "
+style = "#623CE4"
+
+[username]
+disabled = false
+show_always = true

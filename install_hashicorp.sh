@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-set -Eeo pipefail
-# TODO add "-u"
+set -Eeuo pipefail
 
 import_hashicorp_pgp(){
     # https://www.hashicorp.com/security
