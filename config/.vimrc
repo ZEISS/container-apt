@@ -12,7 +12,7 @@ Plug 'morhetz/gruvbox' " https://github.com/morhetz/gruvbox
 Plug 'tmhedberg/SimpylFold' " https://github.com/tmhedberg/SimpylFold
 Plug 'scrooloose/nerdcommenter' " https://github.com/scrooloose/nerdcommenter
 Plug 'jiangmiao/auto-pairs' " https://github.com/jiangmiao/auto-pairs
-Plug 'zxqfl/tabnine-vim' " https://github.com/codota/TabNine
+Plug 'zxqfl/tabnine-vim' " https://github.com/codota/tabnine-vim
 Plug 'scrooloose/nerdtree' " https://github.com/scrooloose/nerdtree
 Plug 'alpertuna/vim-header' " https://github.com/alpertuna/vim-header
 Plug 'ryanoasis/vim-devicons' " https://github.com/ryanoasis/vim-devicons
