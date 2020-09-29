@@ -18,6 +18,8 @@ Ansible control node as container for development or local CI/CD purposes.
 
 * [Docker Engine](https://docs.docker.com/get-docker/)
 
+> **Note**: Install a [Nerd Font](https://www.nerdfonts.com/font-downloads) on the system and configure the used terminal (e.g. [VS Code integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal#_terminal-display-settings)) to display all icons within the container's shell or editor.
+
 ### Usage
 
 By default this container is running infinitly, if started in detached mode.
