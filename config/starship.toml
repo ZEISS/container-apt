@@ -1,0 +1,118 @@
+[aws]
+symbol = " "
+style = "bold #232F3E"
+
+[cmd_duration]
+style = "None"
+prefix = "羽"
+min_time = 30000
+
+[directory]
+truncation_length = 8
+
+[docker]
+disabled = false
+symbol = " "
+style = "bold #2496ED"
+only_with_files = true
+
+[git_branch]
+style = "bold #F05032"
+truncation_length = 8
+truncation_symbol = ""
+
+[git_commit]
+style = "dimmed #F05032"
+
+[git_status]
+style = "#F05032"
+prefix = "["
+suffix = "] "
+show_sync_count = true
+conflicted_count.enabled = true
+deleted_count.enabled = true
+modified_count.enabled = true
+stashed_count.enabled = true
+staged_count.enabled = true
+renamed_count.enabled = true
+untracked_count.enabled = true
+
+[jobs]
+symbol = ""
+threshold = 4
+
+[memory_usage]
+disabled = false
+symbol = " "
+style = "dimmed green"
+show_percentage = true
+show_swap = false
+threshold = 75
+
+[terraform]
+symbol = "ﲴ "
+style = "bold #623CE4"
+
+[time]
+format = " %T"
+style = "None"
+
+[username]
+disabled = false
+show_always = true
+
+[battery]
+full_symbol = ""
+charging_symbol = ""
+discharging_symbol = ""
+
+[conda]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[git_branch]
+symbol = " "
+
+[golang]
+symbol = " "
+
+[haskell]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
+[java]
+symbol = " "
+
+[julia]
+symbol = " "
+
+[nim]
+symbol = " "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[package]
+symbol = " "
+
+[php]
+symbol = " "
+
+[python]
+symbol = " "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = " "

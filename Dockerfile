@@ -19,8 +19,13 @@ RUN set -eux; \
         openssl \
         krb5 \
         krb5-dev \
-        openjdk11-jre-headless \
     ; \
+    if [ \( "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "64" )\ -o \
+        "$(uname -m)" = "aarch64" ]; then; \
+        apk --update add --no-cache \
+            openjdk11-jre-headless \
+        ; \
+    fi; \
     apk add --no-cache --virtual .build-deps \
         gcc \
         make \
@@ -61,23 +66,24 @@ RUN set -eux; \
     mkdir -p /usr/local/etc/dehydrated/hooks; \
     wget -O /usr/local/etc/dehydrated/hooks/lexicon.sh https://raw.githubusercontent.com/AnalogJ/lexicon/master/examples/dehydrated.default.sh
 
-COPY prompt/.bashrc ~/.bashrc
-COPY prompt/starship.toml ~/.config/starship.toml
-COPY prompt/.vimrc ~/.vimrc
-COPY prompt/nerd-emoji.conf /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf
+COPY config/.bashrc ~/.bashrc
+COPY config/starship.toml ~/.config/starship.toml
+COPY config/.vimrc ~/.vimrc
+COPY config/nerd-font-emoji.conf /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf
 
 RUN set -eux; \
+    if [ "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "64" ]; then; \
+        curl -Os https://starship.rs/install.sh; \
+        install.sh -f; \
+        rm install.sh; \
+    fi; \
+    \
     apk --update add --no-cache vim fontconfig; \
     apk --update add --no-cache font-noto-emoji --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community; \
-    pip install --no-cache-dir powerline-status; \
-    curl -fsSL https://starship.rs/install.sh | bash; \
-    wget -P /usr/share/fonts/nerd https://github.com/powerline/powerline/raw/develop/font/PowerlineSymbols.otf; \
-    wget -P /usr/share/fontconfig/conf.avail/ https://github.com/powerline/powerline/raw/develop/font/10-powerline-symbols.conf; \
-    ln -s /usr/share/fontconfig/conf.avail/10-powerline-symbols.conf /etc/fonts/conf.d/10-powerline-symbols.conf; \
-    wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/SourceCodePro.zip; \
+    wget https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip; \
     unzip SourceCodePro.zip -d /usr/share/fonts/nerd; \
-    find /usr/share/fonts/nerd/ -type f -name "*Windows Compatible.ttf" -exec rm -f {} \;; \
     rm SourceCodePro.zip; \
+    find /usr/share/fonts/nerd/ -type f -name "*Windows Compatible.ttf" -exec rm -f {} \;; \
     ln -s /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf /etc/fonts/conf.d/05-nerd-emoji.conf; \
     fc-cache -vf
 

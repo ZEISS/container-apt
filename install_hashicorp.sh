@@ -54,15 +54,15 @@ install_hashicorp(){
     local check_url="https://checkpoint-api.hashicorp.com/v1/check" download_url="https://releases.hashicorp.com"
 
     # Check out the latest package version
-    if [ "${version}" == "latest" ]; then
+    if [ "${version}" = "latest" ]; then
         version="$(curl -s ${check_url}/${name} | sed -En 's/.*"current_version":"?([^,"]*)"?.*/\1/p')"
     fi
     # Check out the linux kernel architecture
-    if [ "$(uname -m)" == "x86_64" ] && [ "$(getconf LONG_BIT)" == "64" ]; then
+    if [ "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "64" ]; then
         osarch="amd64"
-    elif [ "$(uname -m)" == "x86_64" ] && [ "$(getconf LONG_BIT)" == "32" ]; then
+    elif [ "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "32" ]; then
         osarch="386"
-    elif [ "$(uname -m)" == "aarch64" ]; then
+    elif [ "$(uname -m)" = "aarch64" ]; then
         osarch="arm64"
     fi
     # Check out the archive
