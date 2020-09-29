@@ -20,7 +20,7 @@ RUN set -eux; \
         krb5 \
         krb5-dev \
     ; \
-    if [ \( "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "64" )\ -o \
+    if [ \( "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "64" \) -o \
         "$(uname -m)" = "aarch64" ]; then; \
         apk --update add --no-cache \
             openjdk11-jre-headless \
