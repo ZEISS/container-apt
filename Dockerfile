@@ -69,7 +69,7 @@ COPY config/nerd-font-emoji.conf /usr/share/fontconfig/conf.avail/05-nerd-emoji.
 RUN set -eux; \
     if [ "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "64" ]; then \
         curl -Os https://starship.rs/install.sh; \
-        install.sh -f; \
+        bash install.sh -f; \
         rm install.sh; \
     fi; \
     \
