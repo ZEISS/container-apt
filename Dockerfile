@@ -19,13 +19,8 @@ RUN set -eux; \
         openssl \
         krb5 \
         krb5-dev \
+        openjdk8-jre-lib \
     ; \
-    if [ \( "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "64" \) -o \
-        "$(uname -m)" = "aarch64" ]; then; \
-        apk --update add --no-cache \
-            openjdk11-jre-headless \
-        ; \
-    fi; \
     apk add --no-cache --virtual .build-deps \
         gcc \
         make \
