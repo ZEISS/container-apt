@@ -3,9 +3,9 @@ symbol = " "
 style = "bold #232F3E"
 
 [cmd_duration]
-style = "None"
+style = "none"
 prefix = "羽"
-min_time = 30000
+min_time = 300000
 
 [directory]
 truncation_length = 8
@@ -17,9 +17,9 @@ style = "bold #2496ED"
 only_with_files = true
 
 [git_branch]
+symbol = " "
 style = "bold #F05032"
 truncation_length = 8
-truncation_symbol = ""
 
 [git_commit]
 style = "dimmed #F05032"
@@ -73,9 +73,6 @@ symbol = " "
 
 [elm]
 symbol = " "
-
-[git_branch]
-symbol = " "
 
 [golang]
 symbol = " "
