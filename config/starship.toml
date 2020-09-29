@@ -4,7 +4,7 @@ style = "bold #232F3E"
 
 [cmd_duration]
 style = "none"
-prefix = "羽"
+format = "羽[$duration]($style)"
 min_time = 300000
 
 [directory]
@@ -26,8 +26,7 @@ style = "dimmed #F05032"
 
 [git_status]
 style = "#F05032"
-prefix = "["
-suffix = "] "
+format = "[\[$all_status$ahead_behind\]]($style)"
 show_sync_count = true
 conflicted_count.enabled = true
 deleted_count.enabled = true

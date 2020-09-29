@@ -18,7 +18,7 @@ Plug 'alpertuna/vim-header' " https://github.com/alpertuna/vim-header
 Plug 'ryanoasis/vim-devicons' " https://github.com/ryanoasis/vim-devicons
 call plug#end()
 if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  autocmd VimEnter * PlugInstall --sync | q
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC | q
 endif
 filetype plugin indent on
 syntax enable
@@ -53,7 +53,9 @@ let NERDTreeWinSize = 25
 set t_Co=256
 set background=dark
 let g:gruvbox_contrast_dark = 'hard'
-colorscheme gruvbox
+if !empty(glob('~/.vim/plugged/gruvbox/autoload/gruvbox.vim'))
+  colorscheme gruvbox
+endif
 
 """ Status Line
 set guifont=SauceCodePro\ Nerd\ Font\ 13
