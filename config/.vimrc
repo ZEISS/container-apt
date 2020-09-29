@@ -22,7 +22,6 @@ if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 endif
 filetype plugin indent on
 syntax enable
-autocmd FileType * setlocal formatoptions-=cro
 
 """ Commenter
 " Add spaces after comment delimiters by default
@@ -45,10 +44,10 @@ map <F4> <leader>ci <CR>
 
 """ File Tree
 map <F2> :NERDTreeToggle<CR>
-let NERDTreeChDirMode=1
-let NERDTreeShowBookmarks=1
-let NERDTreeIgnore=['\~$', '\.pyc$', '\.swp$']
-let NERDTreeWinSize=25
+let NERDTreeChDirMode = 1
+let NERDTreeShowBookmarks = 1
+let NERDTreeIgnore = ['\~$', '\.pyc$', '\.swp$']
+let NERDTreeWinSize = 25
 
 """ Color Theme
 set t_Co=256
@@ -65,10 +64,16 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.branch = ''
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_sep = ' '
 let g:airline#extensions#tabline#right_alt_sep = '|'
+
+""" Header
+let g:header_field_filename = 0
+let g:header_field_timestamp = 0
+let g:header_field_modified_timestamp = 0
+let g:header_field_modified_by = 0
 
 """ Common
 set encoding=utf-8
