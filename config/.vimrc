@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline-themes' " https://github.com/vim-airline/vim-airline-themes
 Plug 'tomasiser/vim-code-dark' " https://github.com/tomasiser/vim-code-dark
+Plug 'tpope/vim-fugitive' " https://github.com/tpope/vim-fugitive
 Plug 'tmhedberg/SimpylFold' " https://github.com/tmhedberg/SimpylFold
 Plug 'scrooloose/nerdcommenter' " https://github.com/scrooloose/nerdcommenter
 Plug 'jiangmiao/auto-pairs' " https://github.com/jiangmiao/auto-pairs
@@ -65,12 +66,16 @@ let g:airline_theme = 'codedark'
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ' 
+let g:airline_right_alt_sep = ''
 let g:airline_symbols.branch = ''
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#right_sep = ' '
-let g:airline#extensions#tabline#right_alt_sep = '|'
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
 
 """ Header
 let g:header_field_filename = 0
