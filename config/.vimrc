@@ -18,7 +18,7 @@ Plug 'alpertuna/vim-header' " https://github.com/alpertuna/vim-header
 Plug 'ryanoasis/vim-devicons' " https://github.com/ryanoasis/vim-devicons
 call plug#end()
 if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC | q
+  autocmd VimEnter * PlugInstall --sync | qa!
 endif
 filetype plugin indent on
 syntax enable

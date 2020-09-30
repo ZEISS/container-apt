@@ -72,8 +72,7 @@ RUN set -eux; \
     fi; \
     mv /tmp/config/.bashrc ~/.bashrc; \
     \
-    apk --update add --no-cache vim fontconfig; \
-    mv /tmp/config/.vimrc ~/.vimrc; \
+    apk --update add --no-cache fontconfig vim; \
     apk --update add --no-cache font-noto-emoji --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community; \
     wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip; \
     mkdir -p /usr/share/fonts/nerd; \
@@ -83,6 +82,8 @@ RUN set -eux; \
     mv /tmp/config/nerd-emoji-font.conf /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf; \
     ln -s /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf /etc/fonts/conf.d/05-nerd-emoji.conf; \
     fc-cache -vf; \
+    mv /tmp/config/.vimrc ~/.vimrc; \
+    vim -c 'PluginInstall' -c 'qa!'; \
     rm -rf /tmp/config
 
 WORKDIR /srv
