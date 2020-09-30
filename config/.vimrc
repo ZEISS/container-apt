@@ -51,6 +51,9 @@ let NERDTreeWinSize = 25
 
 """ Color Theme
 set t_Co=256
+if &term =~ '256color'
+  set t_ut=
+endif
 set background=dark
 let g:gruvbox_contrast_dark = 'hard'
 if !empty(glob('~/.vim/plugged/gruvbox/autoload/gruvbox.vim'))
