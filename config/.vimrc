@@ -54,7 +54,7 @@ set t_Co=256
 if &term =~ '256color'
   set t_ut=
 endif
-if !empty(glob('~/.vim/plugged/vim-code-dark/autoload/vim-code-dark.vim'))
+if !empty(glob('~/.vim/plugged/vim-code-dark/autoload/airline/themes/codedark.vim'))
   colorscheme codedark
 endif
 
