@@ -50,8 +50,8 @@ let NERDTreeIgnore = ['\~$', '\.pyc$', '\.swp$']
 let NERDTreeWinSize = 25
 
 """ Color Theme
-set t_Co=256
 if &term =~ '256color'
+  set t_Co=256
   set t_ut=
 endif
 if !empty(glob('~/.vim/plugged/vim-code-dark/autoload/airline/themes/codedark.vim'))
