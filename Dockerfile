@@ -83,7 +83,7 @@ RUN set -eux; \
     ln -s /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf /etc/fonts/conf.d/05-nerd-emoji.conf; \
     fc-cache -vf; \
     mv /tmp/config/.vimrc ~/.vimrc; \
-    vim -c 'PluginInstall' -c 'qa!'; \
+    vim -c 'PlugInstall' -c 'qa!'; \
     rm -rf /tmp/config
 
 WORKDIR /srv
