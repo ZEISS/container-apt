@@ -8,7 +8,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'vim-airline/vim-airline' " https://github.com/vim-airline/vim-airline
 Plug 'vim-airline/vim-airline-themes' " https://github.com/vim-airline/vim-airline-themes
-Plug 'morhetz/gruvbox' " https://github.com/morhetz/gruvbox
+Plug 'tomasiser/vim-code-dark' " https://github.com/tomasiser/vim-code-dark
 Plug 'tmhedberg/SimpylFold' " https://github.com/tmhedberg/SimpylFold
 Plug 'scrooloose/nerdcommenter' " https://github.com/scrooloose/nerdcommenter
 Plug 'jiangmiao/auto-pairs' " https://github.com/jiangmiao/auto-pairs
@@ -54,16 +54,14 @@ set t_Co=256
 if &term =~ '256color'
   set t_ut=
 endif
-set background=dark
-let g:gruvbox_contrast_dark = 'hard'
-if !empty(glob('~/.vim/plugged/gruvbox/autoload/gruvbox.vim'))
-  colorscheme gruvbox
+if !empty(glob('~/.vim/plugged/vim-code-dark/autoload/vim-code-dark.vim'))
+  colorscheme codedark
 endif
 
 """ Status Line
 set guifont=SauceCodePro\ Nerd\ Font\ 13
 let g:airline_powerline_fonts = 1
-let g:airline_theme = 'gruvbox'
+let g:airline_theme = 'codedark'
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
@@ -82,7 +80,6 @@ let g:header_field_modified_by = 0
 
 """ Common
 set encoding=utf-8
-set fileencoding=utf-8
 set hlsearch
 set backspace=2
 set cursorline
