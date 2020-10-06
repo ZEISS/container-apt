@@ -1,9 +1,9 @@
 FROM python:3-alpine
 
-ENV TZ Europe/Berlin
-ENV LANG de_DE.UTF-8
-ENV LANGUAGE LANG de_DE.UTF-8
-ENV LC_ALL LANG de_DE.UTF-8
+ENV DEFAULT_TZ=Europe/Berlin \
+    LANG=de_DE.UTF-8 \
+    LANGUAGE=de_DE.UTF-8 \
+    LC_ALL=de_DE.UTF-8
 
 COPY install_hashicorp.sh /usr/local/share/hashicorp/install.sh
 RUN set -eux; \
@@ -49,8 +49,8 @@ RUN set -eux; \
     chmod +x /usr/local/share/hashicorp/install.sh; \
     /usr/local/share/hashicorp/install.sh; \
     \
-    cp /usr/share/zoneinfo/Europe/Berlin /etc/localtime; \
-    echo "Europe/Berlin" >/etc/timezone; \
+    cp /usr/share/zoneinfo/${DEFAULT_TZ} /etc/localtime; \
+    echo "${DEFAULT_TZ}" >/etc/timezone; \
     \
     apk del .build-deps
 
@@ -83,7 +83,7 @@ RUN set -eux; \
     ln -s /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf /etc/fonts/conf.d/05-nerd-emoji.conf; \
     fc-cache -vf; \
     mv /tmp/config/.vimrc ~/.vimrc; \
-    vim -c 'PlugInstall' -c 'qa!'; \
+    # vim -c 'PlugInstall' -c 'qa!'; \
     rm -rf /tmp/config
 
 WORKDIR /srv
