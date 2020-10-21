@@ -1,0 +1,11 @@
+ansible
+ansible[azure]
+pywinrm[kerberos,credssp]
+tox
+molecule
+docker
+boto3
+awscli
+azure-cli
+requests[security]
+dns-lexicon[full]

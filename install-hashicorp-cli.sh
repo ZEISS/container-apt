@@ -73,9 +73,9 @@ install_hashicorp_cli(){
         osarch="amd64"
     elif [ "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "32" ]; then
         osarch="386"
-    elif [[ "$(uname -m)" =~ "aarch" -a "$(getconf LONG_BIT)" = "64" ]]; then
+    elif [[ "$(uname -m)" =~ "aarch" ]] && [ "$(getconf LONG_BIT)" = "64" ]; then
         osarch="arm64"
-    elif [[ "$(uname -m)" =~ "arm" -a "$(getconf LONG_BIT)" = "32" ]]; then
+    elif [[ "$(uname -m)" =~ "arm" ]] && [ "$(getconf LONG_BIT)" = "32" ]; then
         osarch="arm"
     fi
 

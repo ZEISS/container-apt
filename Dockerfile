@@ -5,6 +5,7 @@ ENV DEFAULT_TZ=Europe/Berlin \
     LANGUAGE=de_DE.UTF-8 \
     LC_ALL=de_DE.UTF-8
 
+COPY requirements.in /usr/local/share/ansible/requirements.in
 COPY install-hashicorp-cli.sh /usr/local/share/hashicorp/install-cli.sh
 RUN set -eux; \
     apk --update add --no-cache \
@@ -32,33 +33,22 @@ RUN set -eux; \
         tzdata \
     ; \
     \
-    pip install --no-cache-dir \
-        azure-cli \
-        ansible \
-        pywinrm[kerberos,credssp] \
-        tox \
-        molecule \
-        docker \
-        boto3 \
-        awscli \
-        ansible[azure] \
-        requests[security] \
-        dns-lexicon[full] \
-    ; \
+    cp /usr/share/zoneinfo/${DEFAULT_TZ} /etc/localtime; \
+    echo "${DEFAULT_TZ}" >/etc/timezone; \
+    \
+    pip install --no-cache-dir pip-tools;\
+    pip-compile /usr/local/share/ansible/requirements.in; \
+    pip install --no-cache-dir -r /usr/local/share/ansible/requirements.txt; \
     \
     chmod +x /usr/local/share/hashicorp/install-cli.sh; \
     /usr/local/share/hashicorp/install-cli.sh packer terraform; \
     \
-    cp /usr/share/zoneinfo/${DEFAULT_TZ} /etc/localtime; \
-    echo "${DEFAULT_TZ}" >/etc/timezone; \
-    \
-    apk del .build-deps
-
-RUN set -eux; \
     git clone --depth 1 https://github.com/dehydrated-io/dehydrated.git /usr/local/etc/dehydrated; \
     ln -s /usr/local/etc/dehydrated/dehydrated /usr/local/bin/dehydrated; \
     mkdir -p /usr/local/etc/dehydrated/hooks; \
-    wget -qO /usr/local/etc/dehydrated/hooks/lexicon.sh https://raw.githubusercontent.com/AnalogJ/lexicon/master/examples/dehydrated.default.sh
+    wget -qO /usr/local/etc/dehydrated/hooks/lexicon.sh https://raw.githubusercontent.com/AnalogJ/lexicon/master/examples/dehydrated.default.sh; \
+    \
+    apk del .build-deps
 
 COPY config /tmp/config
 RUN set -eux; \
