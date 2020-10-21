@@ -5,7 +5,7 @@ ENV DEFAULT_TZ=Europe/Berlin \
     LANGUAGE=de_DE.UTF-8 \
     LC_ALL=de_DE.UTF-8
 
-COPY install_hashicorp.sh /usr/local/share/hashicorp/install.sh
+COPY install_hashicorp-cli.sh /usr/local/share/hashicorp/install-cli.sh
 RUN set -eux; \
     apk --update add --no-cache \
         coreutils \
@@ -46,8 +46,8 @@ RUN set -eux; \
         dns-lexicon[full] \
     ; \
     \
-    chmod +x /usr/local/share/hashicorp/install.sh; \
-    /usr/local/share/hashicorp/install.sh; \
+    chmod +x /usr/local/share/hashicorp/install-cli.sh; \
+    /usr/local/share/hashicorp/install-cli.sh packer terraform; \
     \
     cp /usr/share/zoneinfo/${DEFAULT_TZ} /etc/localtime; \
     echo "${DEFAULT_TZ}" >/etc/timezone; \
