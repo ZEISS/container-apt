@@ -1,7 +1,7 @@
 # Ansible Controller
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/rembik/docker-ansible-controller/docker-ci/master?logo=github&label=build)](https://github.com/rembik/docker-ansible-controller/actions)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rembik/docker-ansible-controller?sort=semver&logo=github)](https://github.com/rembik/docker-ansible-controller/releases)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/rembik/docker-ansible-controller/docker-ci/master?logo=github&label=build)][github_actions]
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rembik/docker-ansible-controller?sort=semver&logo=github)][github_releases]
 [![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/rembik/ansible-controller?label=image&logo=docker&logoColor=FFF&sort=semver)](https://hub.docker.com/r/rembik/ansible-controller)
 
 Ansible control node as container for development or local CI/CD purposes.
@@ -31,12 +31,12 @@ Run container with shared volumes to persist and execute IaC from the inside:
 ```shell
 # Docker on Linux or Mac
 docker run --rm -d \
-    -v /host/path:/container/path \
+    -v ${PWD}:/srv \
     --name ansible_controller rembik/ansible-controller
 
 # Docker on Windows
 docker run --rm -d `
-    -v /drive/host/path:/container/path `
+    -v ${PWD}:/srv `
     --name ansible_controller rembik/ansible-controller
 ```
 
@@ -57,7 +57,7 @@ docker exec -it ansible_controller bash
 
 ## Contributing
 
-If you find issues, please register them at this [GitHub project issue page](https://github.com/rembik/docker-ansible-controller/issues/new/choose) or consider contributing code by following this [guideline](http://github.com/rembik/docker-ansible-controller/tree/master/.github/CONTRIBUTING.md).
+If you find issues, please register them at this [GitHub project issue page][github_issue] or consider contributing code by following this [guideline][github_guide].
 
 ## Authors
 
@@ -65,4 +65,10 @@ If you find issues, please register them at this [GitHub project issue page](htt
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](http://github.com/rembik/docker-ansible-controller/tree/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE][github_licence] file for details.
+
+[github_actions]: https://github.com/rembik/docker-ansible-controller/actions
+[github_releases]: https://github.com/rembik/docker-ansible-controller/releases
+[github_issue]: http://github.com/rembik/docker-ansible-controller/issues/new/choose
+[github_guide]: http://github.com/rembik/docker-ansible-controller/tree/master/.github/CONTRIBUTING.md
+[github_licence]: http://github.com/rembik/docker-ansible-controller/tree/master/LICENSE

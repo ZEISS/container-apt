@@ -68,13 +68,15 @@ install_hashicorp_cli(){
     # Import HashiCorp PGP key
     import_hashicorp_pgp
 
-    # Check out the linux kernel architecture
+    # Check out the linux architecture
     if [ "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "64" ]; then
         osarch="amd64"
     elif [ "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "32" ]; then
         osarch="386"
-    elif [ "$(uname -m)" = "aarch64" ]; then
+    elif [[ "$(uname -m)" =~ "aarch" -a "$(getconf LONG_BIT)" = "64" ]]; then
         osarch="arm64"
+    elif [[ "$(uname -m)" =~ "arm" -a "$(getconf LONG_BIT)" = "32" ]]; then
+        osarch="arm"
     fi
 
     for cli in "$@"; do
