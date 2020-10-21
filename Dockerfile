@@ -5,7 +5,7 @@ ENV DEFAULT_TZ=Europe/Berlin \
     LANGUAGE=de_DE.UTF-8 \
     LC_ALL=de_DE.UTF-8
 
-COPY install_hashicorp-cli.sh /usr/local/share/hashicorp/install-cli.sh
+COPY install-hashicorp-cli.sh /usr/local/share/hashicorp/install-cli.sh
 RUN set -eux; \
     apk --update add --no-cache \
         coreutils \
