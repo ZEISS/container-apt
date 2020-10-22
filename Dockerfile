@@ -5,7 +5,7 @@ ENV DEFAULT_TZ=Europe/Berlin \
     LANGUAGE=de_DE.UTF-8 \
     LC_ALL=de_DE.UTF-8
 
-COPY requirements.in /usr/local/share/ansible/requirements.in
+COPY requirements.pip /usr/local/share/ansible/requirements.compile
 COPY install-hashicorp-cli.sh /usr/local/share/hashicorp/install-cli.sh
 RUN set -eux; \
     apk --update add --no-cache \
@@ -37,7 +37,7 @@ RUN set -eux; \
     echo "${DEFAULT_TZ}" >/etc/timezone; \
     \
     pip install --no-cache-dir pip-tools;\
-    pip-compile /usr/local/share/ansible/requirements.in; \
+    pip-compile /usr/local/share/ansible/requirements.compile; \
     pip install --no-cache-dir -r /usr/local/share/ansible/requirements.txt; \
     \
     chmod +x /usr/local/share/hashicorp/install-cli.sh; \

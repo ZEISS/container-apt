@@ -1,8 +1,7 @@
 ansible
-ansible[azure]
 pywinrm[kerberos,credssp]
-tox
 molecule
+tox
 docker
 boto3
 awscli
