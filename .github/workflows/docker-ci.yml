@@ -21,7 +21,7 @@ jobs:
         name: Prepare tags
         id: prep
         run: |
-          DOCKER_IMAGE=rembik/ansible-controller
+          DOCKER_IMAGE=rembik/apt
           VERSION=noop
           if [ "${{ github.event_name }}" = "schedule" ]; then
             VERSION=edge

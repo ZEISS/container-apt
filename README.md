@@ -1,18 +1,18 @@
-# Ansible Controller
+# APT - Automated Provisioning Tools
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/rembik/docker-ansible-controller/docker-ci/master?logo=github&label=build)][github_actions]
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rembik/docker-ansible-controller?sort=semver&logo=github)][github_releases]
-[![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/rembik/ansible-controller?label=image&logo=docker&logoColor=FFF&sort=semver)](https://hub.docker.com/r/rembik/ansible-controller)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/rembik/docker-apt/docker-ci/master?logo=github&label=build)][github_actions]
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rembik/docker-apt?sort=semver&logo=github)][github_releases]
+[![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/rembik/apt?label=image&logo=docker&logoColor=FFF&sort=semver)](https://hub.docker.com/r/rembik/apt)
 
-Ansible control node as container for development or local CI/CD purposes.
-
-## Getting Started
-
- The container image provide infrastucture as code (IaC) tools for imperative configuration management (CM) via Ansible on:
+This image contains tools around [Ansible](https://www.ansible.com/), [Packer](https://www.packer.io/) and [Terraform](https://www.terraform.io/) for automated provisioning of infrastructures:
 
 * Microsoft Azure
 * Amazon Web Services
-* On-Premise
+* On-Premises
+
+The main purpose of this image is to act as a control node for the development of declerative infrastructure as code (IaC) and configuration management (CM) used in CI/CD pipelines.
+
+## Getting Started
 
 ### Prerequisities
 
@@ -22,36 +22,47 @@ Ansible control node as container for development or local CI/CD purposes.
 
 ### Usage
 
-By default this container is running infinitly, if started in detached mode.
+By default this container is running infinitly, if started in detached mode. Mount volumes on container start to share IaC and CM files with the provisioning tools inside the container.
 
-#### Container Parameters
-
-Run container with shared volumes to persist and execute IaC from the inside:
+Run container:
 
 ```shell
 # Docker on Linux or Mac
 docker run --rm -d \
-    -v ${PWD}:/srv \
-    --name ansible_controller rembik/ansible-controller
+    -v "${pwd}:/srv" \
+    --name apt rembik/apt
 
 # Docker on Windows
 docker run --rm -d `
-    -v ${PWD}:/srv `
-    --name ansible_controller rembik/ansible-controller
+    -v "${pwd}:/srv" `
+    --name apt rembik/apt
 ```
 
 > **Note**: Follow the *[File Sharing](https://docs.docker.com/docker-for-windows/#resources)* section for prerequirements, if running Docker on Windows in Hyper-V mode.
 
-Jump into the running container:
+Jump into running container:
 
 ```shell
-docker exec -it ansible_controller bash
+docker exec -it apt bash
+```
+
+Run container with custom command:
+
+```shell
+# Docker on Linux or Mac
+docker run --rm -it -v "${pwd}:/srv" rembik/apt \
+    CMD
+
+# Docker on Windows
+docker run --rm -it -v "${pwd}:/srv" rembik/apt `
+    CMD
 ```
 
 > **Note**: Connections from this container to the docker host can be established with the special DNS name `host.docker.internal` which resolves to the internal IP address used by the host.
 
 #### Useful File Locations
 
+* `/usr/local/share/hashicorp/install.sh` - [HashiCorp binaries install script](https://github.com/rembik/install-hashicorp-binaries)
 * `/usr/local/etc/dehydrated` - [dehydrated](https://github.com/dehydrated-io/dehydrated) base directory
 * `/usr/local/etc/dehydrated/hooks/lexicon.sh` - [dns-lexicon](https://github.com/AnalogJ/lexicon) hook script
 
@@ -67,8 +78,8 @@ If you find issues, please register them at this [GitHub project issue page][git
 
 This project is licensed under the MIT License - see the [LICENSE][github_licence] file for details.
 
-[github_actions]: https://github.com/rembik/docker-ansible-controller/actions
-[github_releases]: https://github.com/rembik/docker-ansible-controller/releases
-[github_issue]: http://github.com/rembik/docker-ansible-controller/issues/new/choose
-[github_guide]: http://github.com/rembik/docker-ansible-controller/tree/master/.github/CONTRIBUTING.md
-[github_licence]: http://github.com/rembik/docker-ansible-controller/tree/master/LICENSE
+[github_actions]: https://github.com/rembik/docker-apt/actions
+[github_releases]: https://github.com/rembik/docker-apt/releases
+[github_issue]: http://github.com/rembik/docker-apt/issues/new/choose
+[github_guide]: http://github.com/rembik/docker-apt/tree/master/.github/CONTRIBUTING.md
+[github_licence]: http://github.com/rembik/docker-apt/tree/master/LICENSE
