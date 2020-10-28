@@ -11,13 +11,10 @@ about: Suggest an idea for this project
 
 - Feature Idea
 
-##### COMPONENT NAME
-<!--- Write the short name of the module, plugin, task or feature below, use your best guess if unsure -->
-
 ##### ADDITIONAL INFORMATION
 <!--- Describe how the feature would be used, why it is needed and what it would solve -->
 
-<!--- Paste example playbooks or commands between quotes below -->
+<!--- Paste example commands between quotes below -->
 ```yaml
 
 ```

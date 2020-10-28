@@ -5,9 +5,9 @@ ENV DEFAULT_TZ=Europe/Berlin \
     LANGUAGE=de_DE.UTF-8 \
     LC_ALL=de_DE.UTF-8
 
-COPY requirements.pip /usr/local/share/ansible-controller/requirements.compile
-COPY install-hashicorp-cli.sh /usr/local/share/hashicorp/install-cli.sh
+COPY python.pkgs /usr/local/share/pip/compile.pkgs
 RUN set -eux; \
+    # Install permanent system packages
     apk --update add --no-cache \
         coreutils \
         curl \
@@ -21,6 +21,7 @@ RUN set -eux; \
         krb5-dev \
         openjdk8-jre-lib \
     ; \
+    # Install build-dependent system packages
     apk add --no-cache --virtual .build-deps \
         gcc \
         make \
@@ -33,25 +34,33 @@ RUN set -eux; \
         tzdata \
     ; \
     \
+    # Set timezone
     cp /usr/share/zoneinfo/${DEFAULT_TZ} /etc/localtime; \
     echo "${DEFAULT_TZ}" >/etc/timezone; \
     \
-    pip install --no-cache-dir pip-tools;\
-    pip-compile /usr/local/share/ansible-controller/requirements.compile; \
-    pip install --no-cache-dir -r /usr/local/share/ansible-controller/requirements.txt; \
+    # Install Ansible, Azure, AWS and DNS python packages
+    pip install --no-cache-dir pip-tools; \
+    pip-compile -qo /usr/local/share/pip/install.pkgs /usr/local/share/pip/compile.pkgs; \
+    pip install --no-cache-dir -r /usr/local/share/pip/install.pkgs; \
     \
-    chmod +x /usr/local/share/hashicorp/install-cli.sh; \
-    /usr/local/share/hashicorp/install-cli.sh packer terraform; \
+    # Install HashiCorp binaries
+    mkdir -p /usr/local/share/hashicorp; \
+    wget -qO /usr/local/share/hashicorp/install.sh https://raw.github.com/rembik/install-hashicorp-binaries/master/install-hashicorp.sh; \
+    chmod +x /usr/local/share/hashicorp/install.sh; \
+    /usr/local/share/hashicorp/install.sh packer terraform; \
     \
+    # Install ACME client
     git clone --depth 1 https://github.com/dehydrated-io/dehydrated.git /usr/local/etc/dehydrated; \
     ln -s /usr/local/etc/dehydrated/dehydrated /usr/local/bin/dehydrated; \
     mkdir -p /usr/local/etc/dehydrated/hooks; \
     wget -qO /usr/local/etc/dehydrated/hooks/lexicon.sh https://raw.githubusercontent.com/AnalogJ/lexicon/master/examples/dehydrated.default.sh; \
     \
+    # Remove build-dependent system packages
     apk del .build-deps
 
 COPY config /tmp/config
 RUN set -eux; \
+    # Install Starship shell prompt
     if [ "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "64" ]; then \
         curl -Os https://starship.rs/install.sh; \
         chmod +x ./install.sh; \
@@ -62,6 +71,7 @@ RUN set -eux; \
     fi; \
     mv /tmp/config/.bashrc ~/.bashrc; \
     \
+    # Install vim editor and nerd fonts
     apk --update add --no-cache fontconfig vim; \
     apk --update add --no-cache font-noto-emoji --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community; \
     wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip; \

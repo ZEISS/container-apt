@@ -8,9 +8,6 @@
 - Bugfix Pull Request
 - Feature Pull Request
 
-##### COMPONENT NAME
-<!--- Write the short name of the module, plugin, task or feature below -->
-
 ##### ADDITIONAL INFORMATION
 <!--- Include additional information to help people understand the change here -->
 <!--- A step-by-step reproduction of the problem is helpful if there is no related issue -->

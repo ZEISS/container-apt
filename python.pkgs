@@ -3,6 +3,7 @@ pywinrm[kerberos,credssp]
 molecule
 tox
 docker
+boto
 boto3
 awscli
 azure-cli

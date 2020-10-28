@@ -12,28 +12,13 @@ about: Create a report to help us improve
 
 - Bug Report
 
-##### COMPONENT NAME
-<!--- Write the short name of the module, plugin, task or feature below, use your best guess if unsure -->
-
-##### ANSIBLE VERSION
-<!--- Paste verbatim output from "ansible --version" between quotes -->
-```paste below
-
-```
-
-##### CONFIGURATION
-<!--- Paste verbatim output from "ansible-config dump --only-changed" between quotes -->
-```paste below
-
-```
-
 ##### OS / ENVIRONMENT
 <!--- Provide all relevant information below, e.g. target OS versions, network device firmware, etc. -->
 
 ##### STEPS TO REPRODUCE
 <!--- Describe exactly how to reproduce the problem, using a minimal test-case -->
 
-<!--- Paste example playbooks or commands between quotes below -->
+<!--- Paste example commands between quotes below -->
 ```yaml
 
 ```
