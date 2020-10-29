@@ -55,7 +55,6 @@ RUN set -eux; \
     mkdir -p /usr/local/etc/dehydrated/hooks; \
     wget -qO /usr/local/etc/dehydrated/hooks/lexicon.sh https://raw.githubusercontent.com/AnalogJ/lexicon/master/examples/dehydrated.default.sh; \
     \
-    # Remove build-dependent system packages
     apk del .build-deps
 
 COPY config /tmp/config
