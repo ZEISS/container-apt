@@ -30,12 +30,12 @@ Run container:
 # Docker on Linux or Mac
 docker run --rm -d \
     -v "${pwd}:/srv" \
-    --name apt zeiss-digital-innovation/apt
+    --name apt ghcr.io/zeiss-digital-innovation/apt
 
 # Docker on Windows
 docker run --rm -d `
     -v "${pwd}:/srv" `
-    --name apt zeiss-digital-innovation/apt
+    --name apt ghcr.io/zeiss-digital-innovation/apt
 ```
 
 > **Note**: Follow the *[File Sharing](https://docs.docker.com/docker-for-windows/#resources)* section for prerequirements, if running Docker on Windows in Hyper-V mode.
@@ -50,11 +50,11 @@ Run container with custom command:
 
 ```shell
 # Docker on Linux or Mac
-docker run --rm -it -v "${pwd}:/srv" zeiss-digital-innovation/apt \
+docker run --rm -it -v "${pwd}:/srv" ghcr.io/zeiss-digital-innovation/apt \
     CMD
 
 # Docker on Windows
-docker run --rm -it -v "${pwd}:/srv" zeiss-digital-innovation/apt `
+docker run --rm -it -v "${pwd}:/srv" ghcr.io/zeiss-digital-innovation/apt `
     CMD
 ```
 
