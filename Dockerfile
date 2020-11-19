@@ -13,13 +13,14 @@ RUN set -eux; \
         curl \
         wget \
         bash \
+        zip \
         git \
         openssh \
         sshpass \
         openssl \
         krb5 \
         krb5-dev \
-        openjdk8-jre-lib \
+        #openjdk8-jre-lib \
     ; \
     # Install build-dependent system packages
     apk add --no-cache --virtual .build-deps \
@@ -45,7 +46,7 @@ RUN set -eux; \
     \
     # Install HashiCorp binaries
     mkdir -p /usr/local/share/hashicorp; \
-    wget -qO /usr/local/share/hashicorp/install.sh https://raw.github.com/rembik/install-hashicorp-binaries/master/install-hashicorp.sh; \
+    wget -qO /usr/local/share/hashicorp/install.sh https://raw.github.com/zeiss-digital-innovation/install-hashicorp-binaries/master/install-hashicorp.sh; \
     chmod +x /usr/local/share/hashicorp/install.sh; \
     /usr/local/share/hashicorp/install.sh packer terraform; \
     \

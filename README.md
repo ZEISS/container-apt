@@ -1,8 +1,8 @@
 # APT - Automated Provisioning Tools
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/rembik/docker-apt/docker-ci/master?logo=github&label=build)][github_actions]
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/rembik/docker-apt?sort=semver&logo=github)][github_releases]
-[![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/rembik/apt?label=image&logo=docker&logoColor=FFF&sort=semver)](https://hub.docker.com/r/rembik/apt)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/zeiss-digital-innovation/docker-apt/docker-build/master?logo=github&label=build)][github_actions]
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/zeiss-digital-innovation/docker-apt?sort=semver&logo=github)][github_releases]
+[![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/zeiss-digital-innovation/apt?label=image&logo=docker&logoColor=FFF&sort=semver)](https://hub.docker.com/r/zeiss-digital-innovation/apt)
 
 This image contains tools around [Ansible](https://www.ansible.com/), [Packer](https://www.packer.io/) and [Terraform](https://www.terraform.io/) for automated provisioning of infrastructures:
 
@@ -30,12 +30,12 @@ Run container:
 # Docker on Linux or Mac
 docker run --rm -d \
     -v "${pwd}:/srv" \
-    --name apt rembik/apt
+    --name apt zeiss-digital-innovation/apt
 
 # Docker on Windows
 docker run --rm -d `
     -v "${pwd}:/srv" `
-    --name apt rembik/apt
+    --name apt zeiss-digital-innovation/apt
 ```
 
 > **Note**: Follow the *[File Sharing](https://docs.docker.com/docker-for-windows/#resources)* section for prerequirements, if running Docker on Windows in Hyper-V mode.
@@ -50,11 +50,11 @@ Run container with custom command:
 
 ```shell
 # Docker on Linux or Mac
-docker run --rm -it -v "${pwd}:/srv" rembik/apt \
+docker run --rm -it -v "${pwd}:/srv" zeiss-digital-innovation/apt \
     CMD
 
 # Docker on Windows
-docker run --rm -it -v "${pwd}:/srv" rembik/apt `
+docker run --rm -it -v "${pwd}:/srv" zeiss-digital-innovation/apt `
     CMD
 ```
 
@@ -62,7 +62,7 @@ docker run --rm -it -v "${pwd}:/srv" rembik/apt `
 
 #### Useful File Locations
 
-* `/usr/local/share/hashicorp/install.sh` - [HashiCorp binaries install script](https://github.com/rembik/install-hashicorp-binaries)
+* `/usr/local/share/hashicorp/install.sh` - [HashiCorp binaries install script](https://github.com/zeiss-digital-innovation/install-hashicorp-binaries)
 * `/usr/local/etc/dehydrated` - [dehydrated](https://github.com/dehydrated-io/dehydrated) base directory
 * `/usr/local/etc/dehydrated/hooks/lexicon.sh` - [dns-lexicon](https://github.com/AnalogJ/lexicon) hook script
 
@@ -78,8 +78,8 @@ If you find issues, please register them at this [GitHub project issue page][git
 
 This project is licensed under the MIT License - see the [LICENSE][github_licence] file for details.
 
-[github_actions]: https://github.com/rembik/docker-apt/actions
-[github_releases]: https://github.com/rembik/docker-apt/releases
-[github_issue]: http://github.com/rembik/docker-apt/issues/new/choose
-[github_guide]: http://github.com/rembik/docker-apt/tree/master/.github/CONTRIBUTING.md
-[github_licence]: http://github.com/rembik/docker-apt/tree/master/LICENSE
+[github_actions]: https://github.com/zeiss-digital-innovation/docker-apt/actions
+[github_releases]: https://github.com/zeiss-digital-innovation/docker-apt/releases
+[github_issue]: http://github.com/zeiss-digital-innovation/docker-apt/issues/new/choose
+[github_guide]: http://github.com/zeiss-digital-innovation/docker-apt/tree/master/.github/CONTRIBUTING.md
+[github_licence]: http://github.com/zeiss-digital-innovation/docker-apt/tree/master/LICENSE
