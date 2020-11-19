@@ -2,7 +2,7 @@
 
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/zeiss-digital-innovation/docker-apt/docker-build/master?logo=github&label=build)][github_actions]
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/zeiss-digital-innovation/docker-apt?sort=semver&logo=github)][github_releases]
-[![Docker Image Size (latest semver)](https://img.shields.io/docker/image-size/zeiss-digital-innovation/apt?label=image&logo=docker&logoColor=FFF&sort=semver)](https://hub.docker.com/r/zeiss-digital-innovation/apt)
+[![GitHub container](https://img.shields.io/github/v/release/zeiss-digital-innovation/docker-apt?sort=semver&logo=github&label=container&logoColor=FFF&color=blue)][github_container]
 
 This image contains tools around [Ansible](https://www.ansible.com/), [Packer](https://www.packer.io/) and [Terraform](https://www.terraform.io/) for automated provisioning of infrastructures:
 
@@ -80,6 +80,7 @@ This project is licensed under the MIT License - see the [LICENSE][github_licenc
 
 [github_actions]: https://github.com/zeiss-digital-innovation/docker-apt/actions
 [github_releases]: https://github.com/zeiss-digital-innovation/docker-apt/releases
+[github_container]: https://github.com/orgs/zeiss-digital-innovation/packages/container/package/apt
 [github_issue]: http://github.com/zeiss-digital-innovation/docker-apt/issues/new/choose
 [github_guide]: http://github.com/zeiss-digital-innovation/docker-apt/tree/master/.github/CONTRIBUTING.md
 [github_licence]: http://github.com/zeiss-digital-innovation/docker-apt/tree/master/LICENSE
