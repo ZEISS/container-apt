@@ -1,8 +1,8 @@
 # APT - Automated Provisioning Tools
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/zeiss-digital-innovation/docker-apt/docker-build/master?logo=github&label=build)][github_actions]
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/zeiss-digital-innovation/docker-apt?sort=semver&logo=github)][github_releases]
-[![GitHub container](https://img.shields.io/github/v/release/zeiss-digital-innovation/docker-apt?sort=semver&logo=github&label=container&logoColor=FFF&color=blue)][github_container]
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/zeiss-digital-innovation/container-apt/docker-build/master?logo=github&label=build)][github_actions]
+[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/zeiss-digital-innovation/container-apt?sort=semver&logo=github)][github_releases]
+[![GitHub container](https://img.shields.io/github/v/release/zeiss-digital-innovation/container-apt?sort=semver&logo=github&label=container&logoColor=FFF&color=blue)][github_container]
 
 This image contains tools around [Ansible](https://www.ansible.com/), [Packer](https://www.packer.io/) and [Terraform](https://www.terraform.io/) for automated provisioning of infrastructures:
 
@@ -78,9 +78,9 @@ If you find issues, please register them at this [GitHub project issue page][git
 
 This project is licensed under the MIT License - see the [LICENSE][github_licence] file for details.
 
-[github_actions]: https://github.com/zeiss-digital-innovation/docker-apt/actions
-[github_releases]: https://github.com/zeiss-digital-innovation/docker-apt/releases
+[github_actions]: https://github.com/zeiss-digital-innovation/container-apt/actions
+[github_releases]: https://github.com/zeiss-digital-innovation/container-apt/releases
 [github_container]: https://github.com/orgs/zeiss-digital-innovation/packages/container/package/apt
-[github_issue]: http://github.com/zeiss-digital-innovation/docker-apt/issues/new/choose
-[github_guide]: http://github.com/zeiss-digital-innovation/docker-apt/tree/master/.github/CONTRIBUTING.md
-[github_licence]: http://github.com/zeiss-digital-innovation/docker-apt/tree/master/LICENSE
+[github_issue]: http://github.com/zeiss-digital-innovation/container-apt/issues/new/choose
+[github_guide]: http://github.com/zeiss-digital-innovation/container-apt/tree/master/.github/CONTRIBUTING.md
+[github_licence]: http://github.com/zeiss-digital-innovation/container-apt/tree/master/LICENSE
