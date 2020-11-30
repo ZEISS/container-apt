@@ -7,5 +7,5 @@ boto
 boto3
 awscli
 azure-cli
-requests[security] < 2.25.0
+requests[security]<2.25.0
 dns-lexicon[full]
