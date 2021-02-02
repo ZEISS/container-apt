@@ -15,11 +15,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-        name: Checkout
+        name: Check out repository
         uses: actions/checkout@v2
       -
-        name: Prepare tags
-        id: prep
+        name: Set build variables
+        id: env
         run: |
           REGISTRY=ghcr.io/
           IMAGE=zeiss-digital-innovation/apt
@@ -55,7 +55,7 @@ jobs:
         name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       -
-        name: Cache Docker layers
+        name: Check out Docker Buildx cache
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
@@ -79,12 +79,12 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64,linux/arm64,linux/386,linux/arm/v7
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.prep.outputs.tags }}
+          tags: ${{ steps.env.outputs.tags }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
           labels: |
-            org.opencontainers.image.created=${{ steps.prep.outputs.created }}
+            org.opencontainers.image.created=${{ steps.env.outputs.created }}
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
-            org.opencontainers.image.version=${{ steps.prep.outputs.version }}
+            org.opencontainers.image.version=${{ steps.env.outputs.version }}
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.licenses=${{ github.event.repository.license.name }}

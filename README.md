@@ -1,6 +1,6 @@
 # APT - Automated Provisioning Tools
 
-[![github_action_badge]][github_action]
+[![github_actions_badge]][github_actions]
 [![github_releases_badge]][github_releases]
 [![github_container_badge]][github_container]
 
@@ -78,12 +78,12 @@ If you find issues, please register them at this [GitHub project issue page][git
 
 This project is licensed under the MIT License - see the [LICENSE][github_licence] file for details.
 
-[github_action]: https://github.com/zeiss-digital-innovation/container-apt/actions
-[github_action_badge]: https://img.shields.io/github/workflow/status/zeiss-digital-innovation/container-apt/docker-build/master?logo=github
+[github_actions]: https://github.com/zeiss-digital-innovation/container-apt/actions?query=workflow%3Acontainer
+[github_actions_badge]: https://img.shields.io/github/workflow/status/zeiss-digital-innovation/container-apt/docker-build/master?logo=github
 [github_releases]: https://github.com/zeiss-digital-innovation/container-apt/releases
 [github_releases_badge]: https://img.shields.io/github/v/release/zeiss-digital-innovation/container-apt?sort=semver&logo=github
 [github_container]: https://github.com/orgs/zeiss-digital-innovation/packages/container/package/apt
-[github_container_badge]: https://img.shields.io/badge/registry-ghcr.io%2Fzeiss--digital--innovation%2Fapt-1488C6?logo=docker&logoColor=FFF
+[github_container_badge]: https://img.shields.io/badge/image-ghcr.io%2Fzeiss--digital--innovation%2Fapt-1488C6?logo=docker&logoColor=FFF
 [github_issue]: http://github.com/zeiss-digital-innovation/container-apt/issues/new/choose
 [github_guide]: http://github.com/zeiss-digital-innovation/container-apt/tree/master/.github/CONTRIBUTING.md
 [github_licence]: http://github.com/zeiss-digital-innovation/container-apt/tree/master/LICENSE
