@@ -76,7 +76,7 @@ RUN set -eux; \
         fontconfig \
         vim \
     ; \
-    apk --update add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/v3.13/community\
+    apk --update add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/v3.13/community \
         font-noto-emoji \
     ; \
     wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip; \
