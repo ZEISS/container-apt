@@ -1,8 +1,8 @@
 # APT - Automated Provisioning Tools
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/zeiss-digital-innovation/container-apt/docker-build/master?logo=github&label=build)][github_actions]
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/zeiss-digital-innovation/container-apt?sort=semver&logo=github)][github_releases]
-[![GitHub container](https://img.shields.io/github/v/release/zeiss-digital-innovation/container-apt?sort=semver&logo=github&label=container&logoColor=FFF&color=blue)][github_container]
+[![github_action_badge]][github_action]
+[![github_releases_badge]][github_releases]
+[![github_container_badge]][github_container]
 
 This image contains tools around [Ansible](https://www.ansible.com/), [Packer](https://www.packer.io/) and [Terraform](https://www.terraform.io/) for automated provisioning of infrastructures:
 
@@ -10,7 +10,7 @@ This image contains tools around [Ansible](https://www.ansible.com/), [Packer](h
 * Amazon Web Services
 * On-Premises
 
-The main purpose of this image is to act as a control node for the development of declerative infrastructure as code (IaC) and configuration management (CM) used in CI/CD pipelines.
+The main purpose of this image is to act as a control node for development of declerative infrastructure as code (IaC) and configuration management (CM) used in CI/CD pipelines.
 
 ## Getting Started
 
@@ -18,7 +18,7 @@ The main purpose of this image is to act as a control node for the development o
 
 * [Docker Engine](https://docs.docker.com/get-docker/)
 
-> **Note**: Install a [Nerd Font](https://www.nerdfonts.com/font-downloads) on the system and configure the used terminal (e.g. [VS Code integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal#_terminal-display-settings)) to display all icons within the container's shell or editor.
+> **Optional**: Install a [Nerd Font](https://www.nerdfonts.com/font-downloads) on the system and configure the used terminal (e.g. [VS Code integrated terminal](https://code.visualstudio.com/docs/editor/integrated-terminal#_terminal-display-settings)) to display all icons within the container's shell or editor.
 
 ### Usage
 
@@ -38,7 +38,7 @@ docker run --rm -d `
     --name apt ghcr.io/zeiss-digital-innovation/apt
 ```
 
-> **Note**: Follow the *[File Sharing](https://docs.docker.com/docker-for-windows/#resources)* section for prerequirements, if running Docker on Windows in Hyper-V mode.
+> **Note**: Follow the *[File Sharing](https://docs.docker.com/docker-for-windows/#resources)* section for prerequisities, if running Docker on Windows in Hyper-V mode.
 
 Jump into running container:
 
@@ -78,9 +78,12 @@ If you find issues, please register them at this [GitHub project issue page][git
 
 This project is licensed under the MIT License - see the [LICENSE][github_licence] file for details.
 
-[github_actions]: https://github.com/zeiss-digital-innovation/container-apt/actions
+[github_action]: https://github.com/zeiss-digital-innovation/container-apt/actions
+[github_action_badge]: https://img.shields.io/github/workflow/status/zeiss-digital-innovation/container-apt/docker-build/master?logo=github
 [github_releases]: https://github.com/zeiss-digital-innovation/container-apt/releases
+[github_releases_badge]: https://img.shields.io/github/v/release/zeiss-digital-innovation/container-apt?sort=semver&logo=github
 [github_container]: https://github.com/orgs/zeiss-digital-innovation/packages/container/package/apt
+[github_container_badge]: https://img.shields.io/badge/registry-ghcr.io%2Fzeiss--digital--innovation%2Fapt-1488C6?logo=docker&logoColor=FFF
 [github_issue]: http://github.com/zeiss-digital-innovation/container-apt/issues/new/choose
 [github_guide]: http://github.com/zeiss-digital-innovation/container-apt/tree/master/.github/CONTRIBUTING.md
 [github_licence]: http://github.com/zeiss-digital-innovation/container-apt/tree/master/LICENSE

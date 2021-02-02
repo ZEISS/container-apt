@@ -1,6 +1,10 @@
 ansible
 pywinrm[kerberos,credssp]
+yamllint
+ansible-lint
 molecule
+molecule-ec2
+molecule-docker
 tox
 docker
 boto

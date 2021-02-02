@@ -15,12 +15,12 @@ RUN set -eux; \
         bash \
         zip \
         git \
+        openssl \
         openssh \
         sshpass \
-        openssl \
         krb5 \
         krb5-dev \
-        #openjdk8-jre-lib \
+        #openjdk11-jre-headless \
     ; \
     # Install build-dependent system packages
     apk add --no-cache --virtual .build-deps \
@@ -72,8 +72,7 @@ RUN set -eux; \
     mv /tmp/config/.bashrc ~/.bashrc; \
     \
     # Install vim editor and nerd fonts
-    apk --update add --no-cache fontconfig vim; \
-    apk --update add --no-cache font-noto-emoji --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community; \
+    apk --update add --no-cache fontconfig font-noto-emoji vim; \
     wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip; \
     mkdir -p /usr/share/fonts/nerd; \
     unzip -d /usr/share/fonts/nerd SourceCodePro.zip; \
@@ -88,4 +87,4 @@ RUN set -eux; \
 
 WORKDIR /srv
 
-CMD [ "sh","-c","while true ; do sleep 1 ; done" ]
+CMD [ "/bin/sh","-c","sleep infinity & wait" ]
