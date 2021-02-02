@@ -72,7 +72,13 @@ RUN set -eux; \
     mv /tmp/config/.bashrc ~/.bashrc; \
     \
     # Install vim editor and nerd fonts
-    apk --update add --no-cache fontconfig font-noto-emoji vim; \
+    apk --update add --no-cache \
+        fontconfig \
+        vim \
+    ; \
+    apk --update add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/v3.13/community\
+        font-noto-emoji \
+    ; \
     wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip; \
     mkdir -p /usr/share/fonts/nerd; \
     unzip -d /usr/share/fonts/nerd SourceCodePro.zip; \
