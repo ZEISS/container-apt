@@ -15,7 +15,6 @@ RUN set -eux; \
         bash \
         zip \
         git \
-        jq \
         openssl \
         openssh \
         sshpass \
@@ -44,9 +43,6 @@ RUN set -eux; \
     pip install --no-cache-dir pip-tools; \
     pip-compile -qo /usr/local/share/pip/install.pkgs /usr/local/share/pip/compile.pkgs; \
     pip install --no-cache-dir -r /usr/local/share/pip/install.pkgs; \
-    \
-    # Install Azure DevOps extension
-    az extension add --name azure-devops; \
     \
     # Install HashiCorp binaries
     mkdir -p /usr/local/share/hashicorp; \

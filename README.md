@@ -50,11 +50,11 @@ Run container with custom command:
 
 ```shell
 # Docker on Linux or Mac
-docker run --rm -it -v "${pwd}:/srv" ghcr.io/zeiss-digital-innovation/apt \
+docker run --rm -it -v "${PWD}:/srv" ghcr.io/zeiss-digital-innovation/apt \
     CMD
 
 # Docker on Windows
-docker run --rm -it -v "${pwd}:/srv" ghcr.io/zeiss-digital-innovation/apt `
+docker run --rm -it -v "${PWD}:/srv" ghcr.io/zeiss-digital-innovation/apt `
     CMD
 ```
 
