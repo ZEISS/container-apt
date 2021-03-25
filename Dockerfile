@@ -15,6 +15,7 @@ RUN set -eux; \
         bash \
         zip \
         git \
+        jq \
         openssl \
         openssh \
         sshpass \
@@ -64,7 +65,7 @@ RUN set -eux; \
     if [ "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "64" ]; then \
         curl -Os https://starship.rs/install.sh; \
         chmod +x ./install.sh; \
-        ./install.sh -f; \
+        ./install.sh -V -f; \
         rm install.sh; \
         mkdir -p ~/.config; \
         mv /tmp/config/starship.toml ~/.config/starship.toml; \
