@@ -29,12 +29,12 @@ Run container:
 ```shell
 # Docker on Linux or Mac
 docker run --rm -d \
-    -v "${pwd}:/srv" \
+    -v "${PWD}:/srv" \
     --name apt ghcr.io/zeiss-digital-innovation/apt
 
 # Docker on Windows
 docker run --rm -d `
-    -v "${pwd}:/srv" `
+    -v "${PWD}:/srv" `
     --name apt ghcr.io/zeiss-digital-innovation/apt
 ```
 
