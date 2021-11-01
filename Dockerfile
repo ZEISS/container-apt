@@ -43,9 +43,11 @@ RUN set -eux; \
     echo "${DEFAULT_TZ}" >/etc/timezone; \
     \
     # Install Ansible, Azure, AWS and DNS python packages
+    python -m pip install --upgrade pip; \
     pip install --no-cache-dir pip-tools; \
     pip-compile -qo /usr/local/share/pip/install.pkgs /usr/local/share/pip/compile.pkgs; \
     pip install --no-cache-dir -r /usr/local/share/pip/install.pkgs; \
+    pip cache purge; \
     \
     # Install HashiCorp binaries
     mkdir -p /usr/local/share/hashicorp; \
@@ -63,35 +65,36 @@ RUN set -eux; \
 
 COPY config /tmp/config
 RUN set -eux; \
-    # Install Starship shell prompt
+    # Configure shell
+    mv /tmp/config/.bashrc ~/.bashrc; \
     if [ "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "64" ]; then \
+        # Insall shell prompt
         curl -Os https://starship.rs/install.sh; \
         chmod +x ./install.sh; \
         ./install.sh -V -f; \
         rm install.sh; \
         mkdir -p ~/.config; \
         mv /tmp/config/starship.toml ~/.config/starship.toml; \
+        # Install fonts
+        apk --update add --no-cache \
+            fontconfig \
+            font-noto-emoji \
+        ; \
+        wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip; \
+        mkdir -p /usr/share/fonts/nerd; \
+        unzip -d /usr/share/fonts/nerd SourceCodePro.zip; \
+        rm SourceCodePro.zip; \
+        find /usr/share/fonts/nerd/ -type f -name "*Windows Compatible.ttf" -exec rm -f {} \;; \
+        mv /tmp/config/nerd-emoji-font.conf /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf; \
+        ln -s /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf /etc/fonts/conf.d/05-nerd-emoji.conf; \
+        fc-cache -vf; \
+        # Install editor
+        apk --update add --no-cache \
+            vim \
+        ; \
+        mv /tmp/config/.vimrc ~/.vimrc; \
+        # vim -c 'PlugInstall' -c 'qa!'; \
     fi; \
-    mv /tmp/config/.bashrc ~/.bashrc; \
-    \
-    # Install vim editor and nerd fonts
-    apk --update add --no-cache \
-        fontconfig \
-        vim \
-    ; \
-    apk --update add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/v3.13/community \
-        font-noto-emoji \
-    ; \
-    wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip; \
-    mkdir -p /usr/share/fonts/nerd; \
-    unzip -d /usr/share/fonts/nerd SourceCodePro.zip; \
-    rm SourceCodePro.zip; \
-    find /usr/share/fonts/nerd/ -type f -name "*Windows Compatible.ttf" -exec rm -f {} \;; \
-    mv /tmp/config/nerd-emoji-font.conf /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf; \
-    ln -s /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf /etc/fonts/conf.d/05-nerd-emoji.conf; \
-    fc-cache -vf; \
-    mv /tmp/config/.vimrc ~/.vimrc; \
-    # vim -c 'PlugInstall' -c 'qa!'; \
     rm -rf /tmp/config
 
 WORKDIR /srv
