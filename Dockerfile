@@ -34,6 +34,8 @@ RUN set -eux; \
         openssl-dev \
         gnupg \
         tzdata \
+        cargo \
+        rust \
     ; \
     \
     # Set timezone
