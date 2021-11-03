@@ -1,9 +1,9 @@
-FROM python:3.10-alpine
+FROM python:3.9-alpine
 
-ENV DEFAULT_TZ=Europe/Berlin \
-    LANG=de_DE.UTF-8 \
-    LANGUAGE=de_DE.UTF-8 \
-    LC_ALL=de_DE.UTF-8
+ENV TIMEZONE=${TIMEZONE:-Europe/Berlin} \
+    LANG=${LANGUAGE:-de_DE}.${ENCODING:-UTF-8} \
+    LANGUAGE=${LANGUAGE:-de_DE}.${ENCODING:-UTF-8} \
+    LC_ALL=${LANGUAGE:-de_DE}.${ENCODING:-UTF-8}
 
 COPY python.pkgs /usr/local/share/pip/compile.pkgs
 RUN set -eux; \
@@ -32,15 +32,15 @@ RUN set -eux; \
         libxml2-dev \
         libxslt-dev \
         openssl-dev \
-        gnupg \
-        tzdata \
         cargo \
         rust \
+        gnupg \
+        tzdata \
     ; \
     \
     # Set timezone
-    cp /usr/share/zoneinfo/${DEFAULT_TZ} /etc/localtime; \
-    echo "${DEFAULT_TZ}" >/etc/timezone; \
+    cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime; \
+    echo "${TIMEZONE}" >/etc/timezone; \
     \
     # Install Ansible, Azure, AWS and DNS python packages
     python -m pip install --upgrade pip; \
@@ -88,12 +88,32 @@ RUN set -eux; \
         mv /tmp/config/nerd-emoji-font.conf /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf; \
         ln -s /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf /etc/fonts/conf.d/05-nerd-emoji.conf; \
         fc-cache -vf; \
-        # Install editor
-        apk --update add --no-cache \
-            vim \
+        # Install build-dependent system packages
+        apk add --no-cache --virtual .build-deps \
+            gcc \
+            make \
+            musl-dev \
+            ncurses-dev \
         ; \
+        # Install editor
+        git clone https://github.com/vim/vim.git /tmp/vim; \
+        cd /tmp/vim; \
+        ./configure \
+            --with-features=huge \
+            --enable-multibyte \
+            --enable-python3interp=yes \
+            --with-python3-config-dir=$(python3-config --configdir) \
+            --enable-cscope \
+            --prefix=/usr/local \
+        ; \
+        vim_version="$(git describe --tags $(git rev-list --tags --max-count=1) | sed -E 's/^v?([0-9]+)\.([0-9]+).*$/\1\2/')"; \
+        make VIMRUNTIMEDIR=/usr/local/share/vim/vim${vim_version}; \
+        make install; \
+        rm -rf /tmp/vim; \
         mv /tmp/config/.vimrc ~/.vimrc; \
         # vim -c 'PlugInstall' -c 'qa!'; \
+        \
+        apk del .build-deps; \
     fi; \
     rm -rf /tmp/config
 
