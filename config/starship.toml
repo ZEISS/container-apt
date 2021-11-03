@@ -9,8 +9,9 @@ min_time = 300000
 
 [directory]
 truncation_length = 8
+read_only = " "
 
-[docker]
+[docker_context]
 disabled = false
 symbol = " "
 style = "bold #2496ED"
@@ -44,9 +45,8 @@ threshold = 4
 disabled = false
 symbol = " "
 style = "dimmed green"
-show_percentage = true
-show_swap = false
 threshold = 75
+format = "$symbol [${ram_pct}]$(style) "
 
 [terraform]
 symbol = "ﲴ "
@@ -77,9 +77,6 @@ symbol = " "
 
 [golang]
 symbol = " "
-
-[haskell]
-symbol = " "
 
 [hg_branch]
 symbol = " "

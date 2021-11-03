@@ -13,4 +13,3 @@ awscli
 azure-cli
 requests[security]
 dns-lexicon[full]
-pyopenssl<20.0.0
