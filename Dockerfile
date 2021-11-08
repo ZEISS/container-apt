@@ -51,7 +51,7 @@ RUN set -eux; \
     \
     # Install HashiCorp binaries
     mkdir -p /usr/local/share/hashicorp; \
-    wget -qO /usr/local/share/hashicorp/install.sh https://raw.github.com/ZEISS/install-hashicorp-binaries/master/install-hashicorp.sh; \
+    wget -qO /usr/local/share/hashicorp/install.sh https://raw.github.com/zeiss/install-hashicorp-binaries/master/install-hashicorp.sh; \
     chmod +x /usr/local/share/hashicorp/install.sh; \
     /usr/local/share/hashicorp/install.sh packer terraform; \
     \
