@@ -46,7 +46,7 @@ disabled = false
 symbol = " "
 style = "dimmed green"
 threshold = 75
-format = "$symbol [${ram_pct}]$(style) "
+format = "$symbol[$ram_pct]($style) "
 
 [terraform]
 symbol = "ﲴ "
