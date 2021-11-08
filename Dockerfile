@@ -51,7 +51,7 @@ RUN set -eux; \
     \
     # Install HashiCorp binaries
     mkdir -p /usr/local/share/hashicorp; \
-    wget -qO /usr/local/share/hashicorp/install.sh https://raw.github.com/zeiss-digital-innovation/install-hashicorp-binaries/master/install-hashicorp.sh; \
+    wget -qO /usr/local/share/hashicorp/install.sh https://raw.github.com/ZEISS/install-hashicorp-binaries/master/install-hashicorp.sh; \
     chmod +x /usr/local/share/hashicorp/install.sh; \
     /usr/local/share/hashicorp/install.sh packer terraform; \
     \
@@ -65,56 +65,54 @@ RUN set -eux; \
 
 COPY config /tmp/config
 RUN set -eux; \
-    # Configure shell
+    # Configure shell env
     mv /tmp/config/.bashrc ~/.bashrc; \
-    if [ "$(uname -m)" = "x86_64" -a "$(getconf LONG_BIT)" = "64" ]; then \
-        # Insall shell prompt
-        curl -Os https://starship.rs/install.sh; \
-        chmod +x ./install.sh; \
-        ./install.sh -V -f; \
-        rm install.sh; \
-        mkdir -p ~/.config; \
-        mv /tmp/config/starship.toml ~/.config/starship.toml; \
-        # Install fonts
-        apk --update add --no-cache \
-            fontconfig \
-            font-noto-emoji \
-        ; \
-        wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip; \
-        mkdir -p /usr/share/fonts/nerd; \
-        unzip -d /usr/share/fonts/nerd SourceCodePro.zip; \
-        rm SourceCodePro.zip; \
-        find /usr/share/fonts/nerd/ -type f -name "*Windows Compatible.ttf" -exec rm -f {} \;; \
-        mv /tmp/config/nerd-emoji-font.conf /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf; \
-        ln -s /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf /etc/fonts/conf.d/05-nerd-emoji.conf; \
-        fc-cache -vf; \
-        # Install build-dependent system packages
-        apk add --no-cache --virtual .build-deps \
-            gcc \
-            make \
-            musl-dev \
-            ncurses-dev \
-        ; \
-        # Install editor
-        git clone https://github.com/vim/vim.git /tmp/vim; \
-        cd /tmp/vim; \
-        ./configure \
-            --with-features=huge \
-            --enable-multibyte \
-            --enable-python3interp=yes \
-            --with-python3-config-dir=$(python3-config --configdir) \
-            --enable-cscope \
-            --prefix=/usr/local \
-        ; \
-        vim_version="$(git describe --tags $(git rev-list --tags --max-count=1) | sed -E 's/^v?([0-9]+)\.([0-9]+).*$/\1\2/')"; \
-        make VIMRUNTIMEDIR=/usr/local/share/vim/vim${vim_version}; \
-        make install; \
-        rm -rf /tmp/vim; \
-        mv /tmp/config/.vimrc ~/.vimrc; \
-        # vim -c 'PlugInstall' -c 'qa!'; \
-        \
-        apk del .build-deps; \
-    fi; \
+    # Install shell prompt
+    curl -Os https://starship.rs/install.sh; \
+    chmod +x ./install.sh; \
+    ./install.sh -V -f; \
+    rm install.sh; \
+    mkdir -p ~/.config; \
+    mv /tmp/config/starship.toml ~/.config/starship.toml; \
+    # Install fonts
+    apk --update add --no-cache \
+        fontconfig \
+        font-noto-emoji \
+    ; \
+    wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip; \
+    mkdir -p /usr/share/fonts/nerd; \
+    unzip -d /usr/share/fonts/nerd SourceCodePro.zip; \
+    rm SourceCodePro.zip; \
+    find /usr/share/fonts/nerd/ -type f -name "*Windows Compatible.ttf" -exec rm -f {} \;; \
+    mv /tmp/config/nerd-emoji-font.conf /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf; \
+    ln -s /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf /etc/fonts/conf.d/05-nerd-emoji.conf; \
+    fc-cache -vf; \
+    # Install build-dependent system packages
+    apk add --no-cache --virtual .build-deps \
+        gcc \
+        make \
+        musl-dev \
+        ncurses-dev \
+    ; \
+    # Install editor
+    git clone https://github.com/vim/vim.git /tmp/vim; \
+    cd /tmp/vim; \
+    ./configure \
+        --with-features=huge \
+        --enable-multibyte \
+        --enable-python3interp=yes \
+        --with-python3-config-dir=$(python3-config --configdir) \
+        --enable-cscope \
+        --prefix=/usr/local \
+    ; \
+    vim_version="$(git describe --tags $(git rev-list --tags --max-count=1) | sed -E 's/^v?([0-9]+)\.([0-9]+).*$/\1\2/')"; \
+    make VIMRUNTIMEDIR=/usr/local/share/vim/vim${vim_version}; \
+    make install; \
+    rm -rf /tmp/vim; \
+    mv /tmp/config/.vimrc ~/.vimrc; \
+    # vim -c 'PlugInstall' -c 'qa!'; \
+    \
+    apk del .build-deps; \
     rm -rf /tmp/config
 
 WORKDIR /srv
