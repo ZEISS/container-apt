@@ -22,7 +22,7 @@ jobs:
         id: env
         run: |
           REGISTRY=ghcr.io/
-          IMAGE=zeiss/apt
+          IMAGE=zeiss-digital-innovation/apt
           VERSION=noop
           if [ "${{ github.event_name }}" = "schedule" ]; then
             VERSION=edge
