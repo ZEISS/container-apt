@@ -51,7 +51,7 @@ RUN set -eux; \
     \
     # Install HashiCorp binaries
     mkdir -p /usr/local/share/hashicorp; \
-    wget -qO /usr/local/share/hashicorp/install.sh https://raw.github.com/zeiss-digital-innovation/install-hashicorp-binaries/master/install-hashicorp.sh; \
+    wget -qO /usr/local/share/hashicorp/install.sh https://raw.github.com/ZEISS/install-hashicorp-binaries/master/install-hashicorp.sh; \
     chmod +x /usr/local/share/hashicorp/install.sh; \
     /usr/local/share/hashicorp/install.sh packer terraform; \
     \
@@ -65,9 +65,9 @@ RUN set -eux; \
 
 COPY config /tmp/config
 RUN set -eux; \
-    # Configure shell
+    # Configure shell env
     mv /tmp/config/.bashrc ~/.bashrc; \
-    # Insall shell prompt
+    # Install shell prompt
     curl -Os https://starship.rs/install.sh; \
     chmod +x ./install.sh; \
     ./install.sh -V -f; \

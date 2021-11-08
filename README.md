@@ -62,7 +62,7 @@ docker run --rm -it -v "${PWD}:/srv" ghcr.io/zeiss-digital-innovation/apt `
 
 #### Useful File Locations
 
-* `/usr/local/share/hashicorp/install.sh` - [HashiCorp binaries install script](https://github.com/zeiss-digital-innovation/install-hashicorp-binaries)
+* `/usr/local/share/hashicorp/install.sh` - [HashiCorp binaries install script](https://github.com/ZEISS/install-hashicorp-binaries)
 * `/usr/local/etc/dehydrated` - [dehydrated](https://github.com/dehydrated-io/dehydrated) base directory
 * `/usr/local/etc/dehydrated/hooks/lexicon.sh` - [dns-lexicon](https://github.com/AnalogJ/lexicon) hook script
 
