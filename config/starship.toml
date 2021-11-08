@@ -9,7 +9,7 @@ min_time = 300000
 
 [directory]
 truncation_length = 8
-read_only = " "
+read_only = "  "
 
 [docker_context]
 disabled = false
@@ -20,7 +20,7 @@ only_with_files = true
 [git_branch]
 symbol = " "
 style = "bold #F05032"
-truncation_length = 8
+truncation_length = 12
 
 [git_commit]
 style = "dimmed #F05032"
