@@ -53,7 +53,7 @@ RUN set -eux; \
     curl -Lo install-azure-cli.sh https://aka.ms/InstallAzureCli; \
     chmod +x ./install-azure-cli.sh; \
     sed -i -e "s/^_TTY/#&/;s/< \$_TTY/#&/" ./install-azure-cli.sh; \
-    echo -e "\n\ny\n" | ./install-azure-cli.sh; \
+    echo -e "\n\n\ny\n\n\n" | ./install-azure-cli.sh; \
     rm install-azure-cli.sh; \
     \
     # Install HashiCorp binaries
