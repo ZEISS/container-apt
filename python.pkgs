@@ -7,9 +7,8 @@ molecule-ec2
 molecule-docker
 tox
 docker
-boto
+botocore
 boto3
 awscli
-azure-cli
 requests[security]
 dns-lexicon[full]
