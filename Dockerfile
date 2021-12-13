@@ -40,7 +40,7 @@ RUN set -eux; \
     \
     # Set timezone
     cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime; \
-    echo "${TIMEZONE}" >/etc/timezone; \
+    echo "${TIMEZONE}" > /etc/timezone; \
     \
     # Install Ansible, AWS and DNS python packages
     python -m pip install --upgrade pip; \
@@ -52,9 +52,9 @@ RUN set -eux; \
     # Install Azure cli
     curl -Lo install-azure-cli.sh https://aka.ms/InstallAzureCli; \
     chmod +x ./install-azure-cli.sh; \
-    sed -i -e "s/^_TTY/#&/;s/< \$_TTY/#&/" ./install-azure-cli.sh; \
+    sed -ie "s/^_TTY/#&/;s/< \$_TTY/#&/" ./install-azure-cli.sh; \
     echo -e "\n\n\ny\n\n\n" | ./install-azure-cli.sh; \
-    rm install-azure-cli.sh; \
+    set +e; rm install-azure-cli.sh ~/.bashrc.backup; set -e; \
     \
     # Install HashiCorp binaries
     mkdir -p /usr/local/share/hashicorp; \
@@ -73,7 +73,7 @@ RUN set -eux; \
 COPY config /tmp/config
 RUN set -eux; \
     # Configure shell env
-    mv /tmp/config/.bashrc ~/.bashrc; \
+    cat /tmp/config/.bashrc >> ~/.bashrc; \
     # Install shell prompt
     curl -Os https://starship.rs/install.sh; \
     chmod +x ./install.sh; \
