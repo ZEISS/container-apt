@@ -5,6 +5,8 @@ ENV TIMEZONE=${TIMEZONE:-Europe/Berlin} \
     LANGUAGE=${LANGUAGE:-de_DE}.${ENCODING:-UTF-8} \
     LC_ALL=${LANGUAGE:-de_DE}.${ENCODING:-UTF-8}
 
+WORKDIR /srv
+
 COPY python.pkgs /usr/local/share/pip/compile.pkgs
 RUN set -eux; \
     # Install permanent system packages
@@ -31,7 +33,8 @@ RUN set -eux; \
         libffi-dev \
         libxml2-dev \
         libxslt-dev \
-        libressl-dev \
+        openssl-dev \
+        python3-dev \
         cargo \
         rust \
         gnupg \
@@ -121,7 +124,5 @@ RUN set -eux; \
     \
     apk del .build-deps; \
     rm -rf /tmp/config
-
-WORKDIR /srv
 
 CMD [ "/bin/sh","-c","sleep infinity & wait" ]
