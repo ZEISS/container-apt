@@ -31,7 +31,7 @@ RUN set -eux; \
         libffi-dev \
         libxml2-dev \
         libxslt-dev \
-        openssl-dev \
+        libressl-dev \
         cargo \
         rust \
         gnupg \
