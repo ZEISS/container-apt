@@ -78,7 +78,7 @@ RUN set -eux; \
     # Remove build-dependent system packages and files
     apk del .build-deps; \
     pip cache purge; \
-    rm -rf ~/.cargo "$(pip cache dir)/*" /tmp/*
+    rm -rf ~/.cargo ~/.cache /tmp/*
 
 COPY config /tmp/config
 RUN set -eux; \
