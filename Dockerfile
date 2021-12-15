@@ -47,7 +47,7 @@ RUN set -eux; \
     # Hotfix: QEMU/Buildx/Cargo issue for armv7
     # https://github.com/pyca/cryptography/issues/6673
     if [[ "$(uname -m)" =~ ^.*arm.*$ ]]; then \
-        $(cd ~/.cargo/registry/index && git clone --bare https://github.com/rust-lang/crates.io-index.git github.com-1285ae84e5963aae); \
+        git clone --bare https://github.com/rust-lang/crates.io-index.git ~/.cargo/registry/index/github.com-1285ae84e5963aae; \
     fi; \
     \
     # Install Ansible, AWS and DNS python packages
@@ -63,6 +63,10 @@ RUN set -eux; \
     sed -ie "s/^_TTY/#&/;s/< \$_TTY/#&/" ./install-azure-cli.sh; \
     echo -e "/usr/local/lib/azure-cli\n/usr/local/bin\n\n" | ./install-azure-cli.sh; \
     rm install-azure-cli.sh ~/.bashrc.backup; \
+    \
+    # Hotfix: QEMU/Buildx/Cargo issue for armv7
+    # https://github.com/pyca/cryptography/issues/6673
+    if [[ "$(uname -m)" =~ ^.*arm.*$ ]]; then rm -rf ~/.cargo; fi; \
     \
     # Install HashiCorp binaries
     mkdir -p /usr/local/share/hashicorp; \
