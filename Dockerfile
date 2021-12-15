@@ -44,29 +44,27 @@ RUN set -eux; \
     cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime; \
     echo "${TIMEZONE}" > /etc/timezone; \
     \
-    # Hotfix: QEMU/Buildx/Cargo issue for armv7
-    # https://github.com/pyca/cryptography/issues/6673
-    if [[ "$(uname -m)" =~ ^.*arm.*$ ]]; then \
-        git clone --bare https://github.com/rust-lang/crates.io-index.git ~/.cargo/registry/index/github.com-1285ae84e5963aae; \
-    fi; \
-    \
     # Install Ansible, AWS and DNS python packages
+    if [[ "$(uname -m)" =~ ^.*arm.*$ ]] && [ "$(getconf LONG_BIT)" = "32" ]; then \
+        # Hotfix: QEMU/Buildx/Cargo issue for arm 32bit
+        # https://github.com/pyca/cryptography/issues/6673
+        git clone --bare https://github.com/rust-lang/crates.io-index.git \
+            ~/.cargo/registry/index/github.com-1285ae84e5963aae; \
+    fi; \
     python -m pip install --upgrade pip; \
     pip install --no-cache-dir pip-tools; \
     pip-compile -qo /usr/local/share/pip/install.pkgs /usr/local/share/pip/compile.pkgs; \
     pip install --no-cache-dir -r /usr/local/share/pip/install.pkgs; \
     pip cache purge; \
+    rm -rf ~/.cargo; \
     \
     # Install Azure cli
     curl -Lo install-azure-cli.sh https://aka.ms/InstallAzureCli; \
     chmod +x ./install-azure-cli.sh; \
     sed -ie "s/^_TTY/#&/;s/< \$_TTY/#&/" ./install-azure-cli.sh; \
     echo -e "/usr/local/lib/azure-cli\n/usr/local/bin\n\n" | ./install-azure-cli.sh; \
-    rm install-azure-cli.sh ~/.bashrc.backup; \
-    \
-    # Hotfix: QEMU/Buildx/Cargo issue for armv7
-    # https://github.com/pyca/cryptography/issues/6673
-    if [[ "$(uname -m)" =~ ^.*arm.*$ ]]; then rm -rf ~/.cargo; fi; \
+    pip cache purge; \
+    rm -rf install-azure-cli.sh ~/.bashrc.backup /tmp/*; \
     \
     # Install HashiCorp binaries
     mkdir -p /usr/local/share/hashicorp; \
