@@ -57,7 +57,7 @@ jobs:
         with:
           config-inline: |
             [worker.oci]
-          max-parallelism = 4
+              max-parallelism = 4
       -
         name: Check out Docker Buildx cache
         uses: actions/cache@v2
