@@ -34,7 +34,6 @@ RUN set -eux; \
         libxml2-dev \
         libxslt-dev \
         openssl-dev \
-        python3-dev \
         cargo \
         rust \
         gnupg \
@@ -44,6 +43,12 @@ RUN set -eux; \
     # Set timezone
     cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime; \
     echo "${TIMEZONE}" > /etc/timezone; \
+    \
+    # Hotfix: QEMU/Buildx/Cargo issue for armv7
+    # https://github.com/pyca/cryptography/issues/6673
+    if [[ "$(uname -m)" =~ ^.*arm.*$ ]]; then \
+        $(cd ~/.cargo/registry/index && git clone --bare https://github.com/rust-lang/crates.io-index.git github.com-1285ae84e5963aae); \
+    fi; \
     \
     # Install Ansible, AWS and DNS python packages
     python -m pip install --upgrade pip; \
