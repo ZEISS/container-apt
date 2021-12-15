@@ -55,20 +55,17 @@ RUN set -eux; \
     pip install --no-cache-dir pip-tools; \
     pip-compile -qo /usr/local/share/pip/install.pkgs /usr/local/share/pip/compile.pkgs; \
     pip install --no-cache-dir -r /usr/local/share/pip/install.pkgs; \
-    pip cache purge; \
-    rm -rf ~/.cargo; \
     \
     # Install Azure cli
     curl -Lo install-azure-cli.sh https://aka.ms/InstallAzureCli; \
     chmod +x ./install-azure-cli.sh; \
     sed -ie "s/^_TTY/#&/;s/< \$_TTY/#&/" ./install-azure-cli.sh; \
     echo -e "/usr/local/lib/azure-cli\n/usr/local/bin\n\n" | ./install-azure-cli.sh; \
-    pip cache purge; \
-    rm -rf install-azure-cli.sh ~/.bashrc.backup /tmp/*; \
+    rm -rf install-azure-cli.sh install-azure-cli.she ~/.bashrc.backup; \
     \
     # Install HashiCorp binaries
     mkdir -p /usr/local/share/hashicorp; \
-    wget -qO /usr/local/share/hashicorp/install.sh https://raw.github.com/zeiss/install-hashicorp-binaries/master/install-hashicorp.sh; \
+    wget --no-cache -qO /usr/local/share/hashicorp/install.sh https://raw.github.com/zeiss/install-hashicorp-binaries/master/install-hashicorp.sh; \
     chmod +x /usr/local/share/hashicorp/install.sh; \
     /usr/local/share/hashicorp/install.sh packer terraform; \
     \
@@ -76,9 +73,12 @@ RUN set -eux; \
     git clone --depth 1 https://github.com/dehydrated-io/dehydrated.git /usr/local/etc/dehydrated; \
     ln -s /usr/local/etc/dehydrated/dehydrated /usr/local/bin/dehydrated; \
     mkdir -p /usr/local/etc/dehydrated/hooks; \
-    wget -qO /usr/local/etc/dehydrated/hooks/lexicon.sh https://raw.githubusercontent.com/AnalogJ/lexicon/master/examples/dehydrated.default.sh; \
+    wget --no-cache -qO /usr/local/etc/dehydrated/hooks/lexicon.sh https://raw.githubusercontent.com/AnalogJ/lexicon/master/examples/dehydrated.default.sh; \
     \
-    apk del .build-deps
+    # Remove build-dependent system packages and files
+    apk del .build-deps; \
+    pip cache purge; \
+    rm -rf ~/.cargo "$(pip cache dir)/*" /tmp/*
 
 COPY config /tmp/config
 RUN set -eux; \
@@ -96,10 +96,9 @@ RUN set -eux; \
         fontconfig \
         font-noto-emoji \
     ; \
-    wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip; \
+    wget --no-cache -qO /tmp/SourceCodePro.zip https://github.com/ryanoasis/nerd-fonts/releases/latest/download/SourceCodePro.zip; \
     mkdir -p /usr/share/fonts/nerd; \
-    unzip -d /usr/share/fonts/nerd SourceCodePro.zip; \
-    rm SourceCodePro.zip; \
+    unzip -d /usr/share/fonts/nerd /tmp/SourceCodePro.zip; \
     find /usr/share/fonts/nerd/ -type f -name "*Windows Compatible.ttf" -exec rm -f {} \;; \
     mv /tmp/config/nerd-emoji-font.conf /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf; \
     ln -s /usr/share/fontconfig/conf.avail/05-nerd-emoji.conf /etc/fonts/conf.d/05-nerd-emoji.conf; \
@@ -125,11 +124,11 @@ RUN set -eux; \
     vim_version="$(git describe --tags $(git rev-list --tags --max-count=1) | sed -E 's/^v?([0-9]+)\.([0-9]+).*$/\1\2/')"; \
     make VIMRUNTIMEDIR=/usr/local/share/vim/vim${vim_version}; \
     make install; \
-    rm -rf /tmp/vim; \
     mv /tmp/config/.vimrc ~/.vimrc; \
     # vim -c 'PlugInstall' -c 'qa!'; \
     \
+    # Remove build-dependent system packages and files
     apk del .build-deps; \
-    rm -rf /tmp/config
+    rm -rf /tmp/*
 
 CMD [ "/bin/sh","-c","sleep infinity & wait" ]
